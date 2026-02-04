@@ -17,11 +17,11 @@ return new class extends Migration
             $table->text('description');
             $table->float('price',8,2);
             // relazione con category
-            $table->insignedGibInteger('category_id')->nullable();
-            $table->foreing('category_id')->references('id')->on('categories');
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories');
             // relazione con user
-            $table->insignedGibInteger('user_id')->nullable();
-            $table->foreing('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

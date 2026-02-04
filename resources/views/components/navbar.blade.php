@@ -1,51 +1,53 @@
 <nav class="navbar navbar-expand-lg navbar-light">
-    <!-- <span class="miniIcon"></span>
-        <span class="miniIcon"></span>
-        <span class="miniIcon"></span>
-        <span class="miniIcon"></span>
-        <span class="miniIcon"></span>
-        <span class="miniIcon"></span>
-        <span class="miniIcon"></span> -->
-        <div class="container">
-            
-            <a href="" class="logo text-decoration-none text-danger">Presto.it</a>
-            
+    <div class="container d-flex flex-column">
+        <div class="d-flex gap-4 justify-content-end w-100 border-bottom border-1 firstLine">
+            <span class="topbar-link">Magazine</span>
+            <span class="topbar-link">Consigli per la vendita</span>
+            <span class="topbar-link">Negozi e Aziende</span>
+            <span class="topbar-link">Subito per le Aziende</span>
+            <span class="topbar-link">Assistenza</span>
+            <span class="topbar-link">Ricerche salvate</span>
+            <span class="topbar-link">Preferiti</span>
+        </div>
+        <div class="d-flex w-100 border-bottom border-1 secondLine">
+            <div class="w-100"> 
+                <a href="" class="logo text-decoration-none text-danger">Presto.it</a>
+            </div>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav ms-auto gap-4 align-items-center">
+
+            <div class="collapse navbar-collapse w-100" id="navbarNavDropdown">
+                <ul class="navbar-nav  gap-4">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{route('home')}}">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active fw-bold" href="{{route("login")}}">Accedi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route("register")}}">Registrati</a>
-                    </li>
                     @auth
-                    
                     <li class="nav-item">
-                        <button class=" btn-navbar fw-bold">
+                        <a class="nav-link active fw-bold" href="">Benvenut* {{Auth::user()->name}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('article_create')}}" class="inputCreate fw-bold text-decoration-none">
                             <i class="fa-solid fa-plus" style="color: #ff0000;"></i> Inserisci annuncio
-                        </button>
-                    </li>
-                    @endauth
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                           Dropdown
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
                     </li>
+                    <form action="{{route('logout')}}" method="POST" class="text-center">
+                        @csrf
+                        <button class="btn" type="submit"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
+                    </form>
+                    @else
+                    <li class="nav-item">
+                        <a class="nav-link active fw-bold" href="{{route('login')}}">Accedi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('register')}}">Registrati</a>
+                    </li>
+
+                    @endauth
                 </ul>
             </div>
-            
         </div>
-    </nav>
+
+
+</nav>

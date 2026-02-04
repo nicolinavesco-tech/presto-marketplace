@@ -6,7 +6,7 @@ use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class categoriesSeeder extends Seeder
+class CategoriesSeeder extends Seeder
 {
     public $categories = [
         'Elettronica',

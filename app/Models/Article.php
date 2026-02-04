@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\User;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Article extends Model
 {
@@ -15,8 +18,12 @@ class Article extends Model
         
         ];
 
-    public function user(){
+    public function user(): BelongsTo{
         return $this->belongsTo(User::class);
+    }
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 
 }
