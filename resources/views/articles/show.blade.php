@@ -29,6 +29,15 @@
                     <h4 class="fw-bold">Prezzo: {{$article->price}} €</h4>
                     <h5>Descrizione:</h5>
                     <p>{{$article->description}}</p>
+                    @if(Auth::check() && Auth::user()->id == $article->user->id) 
+
+                    <form action="{{route('article_destroy', compact('article'))}}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-delete btn-custom">ELIMINA</button>
+                        
+                    </form>
+                    @endif
                 </div>
             </div>
         </div>

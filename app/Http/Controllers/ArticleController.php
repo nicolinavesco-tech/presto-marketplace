@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controllers\HasMiddleware;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
 class ArticleController extends Controller implements HasMiddleware
 {
@@ -25,6 +27,22 @@ public function article_index(){
 public function article_create(){
     return view("articles.create");
 }
+/**
+ * Store a newly created resource in storage.
+ */
+public function store(Request $request)
+{
+  
+    Article::create([
+        "title"=> $request->title,
+        "description"=>$request->content,
+        "price"=>$request->price,
+        "user_id"=>Auth::user()->id,
+        "category_id"=>$request->category_id
+    ]);
+    return redirect(route('home'));
+    
+}
 
 public function byCategory(Category $category){
     return view ("article.byCategory", ["articles"=> $category->articles, "category"=>$category]);
@@ -35,5 +53,15 @@ public function article_show(Article $article){
     return view('articles.show', compact('article'));
 }
 
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Article $article)
+    {
+            $article->delete();
+            return redirect(route('home')); 
+        
+    }
 
 }
