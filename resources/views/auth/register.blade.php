@@ -2,7 +2,7 @@
     <h1 class="text-center mt-5">Pagina di registrazione</h1>
     <main class="container">
         <section class="row wh-75 justify-content-center mt-5">
-            <article class="col-12 col-md-8">
+            <article class="col-12 col-md-6">
                 <form method="POST" action="{{route('register')}}">
                     @csrf
                     <div class="mb-3">
@@ -35,7 +35,7 @@
                     <div class="col-auto box-buttons">
                         
 
-                       <button type="submit" class="btn mb-3 form-button w-50">Registrati</button>
+                       <button type="submit" class="mb-3 form-button w-50">Registrati</button>
                     </div>
                 </form>
             </article>

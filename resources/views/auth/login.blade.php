@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-auto d-flex justify-content-between align-items-center">
                         <a href="{{route('register')}}">Non sei ancora registrato? Clicca qui!</a>
-                        <button type="submit" class="btn btn-primary mb-3">Login</button>
+                        <button type="submit" class=" form-button w-50 mb-3">Login</button>
                     </div>
                 </form>
             </article>

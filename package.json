@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^7.1.0",
+        "@splidejs/splide": "^4.1.4",
         "bootstrap": "^5.3.8",
         "mdb-ui-kit": "^9.3.0"
     }

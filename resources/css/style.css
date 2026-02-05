@@ -48,4 +48,6 @@
     color: white;
     background-color: #f9423a;
     border-radius: 25px;
+    border:none;
+    height:40px;
 }

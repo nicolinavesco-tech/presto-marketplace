@@ -93,16 +93,16 @@
 
           <ul class="list-unstyled mb-0">
             <li>
-              <a class="text-body" href="#!">Link 1</a>
+              <a class="text-body" href="#!">Assistenza</a>
             </li>
             <li>
-              <a class="text-body" href="#!">Link 2</a>
+              <a class="text-body" href="#!">Regole</a>
             </li>
             <li>
-              <a class="text-body" href="#!">Link 3</a>
+              <a class="text-body" href="#!">Sicurezza</a>
             </li>
             <li>
-              <a class="text-body" href="#!">Link 4</a>
+              <a class="text-body" href="#!">Condizioni</a>
             </li>
           </ul>
         </div>
@@ -114,16 +114,16 @@
 
           <ul class="list-unstyled mb-0">
             <li>
-              <a class="text-body" href="#!">Link 1</a>
+              <a class="text-body" href="#!">Privacy</a>
             </li>
             <li>
-              <a class="text-body" href="#!">Link 2</a>
+              <a class="text-body" href="#!">Accessibilità</a>
             </li>
             <li>
-              <a class="text-body" href="#!">Link 3</a>
+              <a class="text-body" href="#!">Gestisci cookies</a>
             </li>
             <li>
-              <a class="text-body" href="#!">Link 4</a>
+              <a class="text-body" href="#!">TuttoSubito Vendi</a>
             </li>
           </ul>
         </div>
@@ -185,3 +185,20 @@
   <!-- Copyright -->
 </footer>
 <!-- Footer -->
+
+
+Regole
+Sicurezza
+Condizioni
+Privacy
+Accessibilità
+Gestisci cookies
+TuttoSubito Vendi
+TuttoSubito Compra
+Servizio TuttoSubito
+Servizio TuttoSubito per Professionisti
+Inserisci annuncio
+Promuovi annuncio
+Consigli per la vendita
+Negozi e Aziende
+Subito per le aziende

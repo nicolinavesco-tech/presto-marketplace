@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container d-flex flex-column">
-        <div class="d-flex gap-4 justify-content-end w-100 border-bottom border-1 firstLine">
+    <div class="container-fluid d-flex flex-column p-0">
+        <div class="d-flex gap-4 justify-content-center w-100 border-bottom border-1 firstLine">
             <span class="topbar-link">Magazine</span>
             <span class="topbar-link">Consigli per la vendita</span>
             <span class="topbar-link">Negozi e Aziende</span>
@@ -10,7 +10,7 @@
             <span class="topbar-link">Preferiti</span>
         </div>
         <div class="d-flex w-100 border-bottom border-1 secondLine">
-            <div class="w-100"> 
+            <div class="w-100">
                 <a href="" class="logo text-decoration-none text-danger">Presto.it</a>
             </div>
 
@@ -35,6 +35,19 @@
                     <li>
                         <a class="nav-link" aria-current="page" href="{{route('article_index')}}">Tutti gli articoli</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorie</a>
+                        <ul class="dropdown-menu">
+                            @foreach($categories as $category)
+                            <li>
+                                <a href="" class="dropdown-item text-capitalize">{{$category->name}}</a>
+                            </li>
+                            @if (!$loop->last)
+                            <hr class="dropdown-divider">
+                            @endif
+                            @endforeach
+                        </ul>
+                    </li>
                     <form action="{{route('logout')}}" method="POST" class="text-center">
                         @csrf
                         <button class="btn" type="submit"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
@@ -45,6 +58,19 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('register')}}">Registrati</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorie</a>
+                        <ul class="dropdown-menu">
+                            @foreach($categories as $category)
+                            <li>
+                                <a href="" class="dropdown-item text-capitalize">{{$category->name}}</a>
+                            </li>
+                            @if (!$loop->last)
+                            <hr class="dropdown-divider">
+                            @endif
+                            @endforeach
+                        </ul>
                     </li>
 
                     @endauth

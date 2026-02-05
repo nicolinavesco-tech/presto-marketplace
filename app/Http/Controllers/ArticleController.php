@@ -26,4 +26,9 @@ public function article_create(){
 }
 
 
+public function article_show(){
+    return view('articles.show', compact('article'));
+}
+
+
 }
