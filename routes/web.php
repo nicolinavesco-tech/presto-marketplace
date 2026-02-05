@@ -14,3 +14,7 @@ Route::post('/articles/store',[ArticleController::class, "article_store"])->name
 Route::get('/article/show/{article}',[ArticleController::class, "article_show"])->name('article_show');
 Route::put('/article/edit/{article}',[ArticleController::class, "article_edit"])->name('article_edit');
 Route::delete('/article/destroy/{}', [ArticleController::class, "article_destroy"])->name('article_destroy');
+
+// rotta categorie
+
+Route::get("/category/{category}", [ArticleController::class, "byCategory"])->name("byCategory");
