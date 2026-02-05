@@ -13,6 +13,7 @@
 @forelse ($articles as $article)
 <div class="col-12 col-md-3">
     <x-card :article="$article"/>
+    <span class="mt-2">{{ $article->created_at }}</span>
 </div>
 @empty
 <div class="col-12">
