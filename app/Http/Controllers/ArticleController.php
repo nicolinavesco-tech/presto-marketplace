@@ -22,7 +22,7 @@ public function article_index(){
     return view ('articles.index', compact('articles',));
     }
 public function article_create(){
-    
+    return view("articles.create");
 }
 
 
