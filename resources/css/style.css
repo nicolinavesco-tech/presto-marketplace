@@ -34,6 +34,7 @@
     transition: all 0.2s ease;
     gap: 5px;
 }
+/* BUTTONS */
 .btn-navbar:hover{
     border:1px solid red;
 }
@@ -55,6 +56,11 @@
     border:none;
     height:40px;
 }
+.form-button:hover{
+    background-color: #f9423a;
+    opacity: 0.8;
+}
+
 /* Header */
 .row-home{
     height: 20vh;
@@ -129,3 +135,74 @@
     background-color: #f9423a;
 }
 
+
+.logo-footer {
+    max-width: 140px;
+    height: auto;
+}
+.navbar {
+    --mdb-navbar-box-shadow: none;
+    box-shadow: none !important;
+}
+/* LOGIN */
+.login-article {
+    margin-right: 20px; 
+}
+
+.login-card {
+    background: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    min-height: 500px;
+}
+
+.login-row {
+    min-height: 100%; 
+}
+
+
+.login-hero-text {
+    position: absolute;
+    top: 20%;
+    left: 50px;
+    transform: translateY(-50%);
+    max-width: 600px;
+    color: #fff;
+}
+
+.hero-line-1 {
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 16px;
+}
+
+.hero-line-2 {
+    font-size: 2.3rem;
+    font-weight: 600;
+    color: #ca4040;
+}
+
+
+
+/* Адаптивність */
+@media (max-width: 995px) {
+    .login-wrapper {
+        background-image: none !important;
+    }
+    .login-article {
+        margin-right: 0;
+        max-width: 100%;
+        justify-content: center;
+    }
+    .login-card {
+        border-radius: 0;
+        box-shadow: none;
+        width: 100%;
+        padding: 20px;
+    }
+    .login-hero-text{
+        display: none;
+    }
+}

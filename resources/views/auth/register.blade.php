@@ -1,5 +1,8 @@
 <x-layout>
-    <h1 class="text-center mt-5">Pagina di registrazione</h1>
+    <h1 class="text-center mt-5">Registrati</h1>
+    <p class="text-center">
+      Crea il tuo account per iniziare a vendere e comprare in tutta Italia.  
+    </p>
     <main class="container">
         <section class="row wh-75 justify-content-center mt-5">
             <article class="col-12 col-md-6">
@@ -29,12 +32,10 @@
                             <input type="password" class="form-control" id="confirmpassword" name="password_confirmation" >
                         </div>
                     </div>
-                    <div class="col-auto d-flex justify-content-between align-items-center">
-                        <a href="{{route('login')}}">Se hai già un account! Accedi qui!</a>
+                    <div class="col-auto d-flex justify-content-center">
+                        <a class="text-decoration-none text-dark" href="{{route('login')}}">Hai già un account? <strong style="color:#f9423a">Accedi qui!</strong></a>
                     </div>
                     <div class="col-auto box-buttons">
-                        
-
                        <button type="submit" class="mb-3 form-button w-50">Registrati</button>
                     </div>
                 </form>

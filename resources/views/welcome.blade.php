@@ -82,7 +82,7 @@
                 <x-card :article="$article" />
             </div>
             @empty
-            <div class="col-12">
+            <div class="col-12 mt-5">
                 <h3 class="text-center">
                     Non sono ancora stati creati articoli
                 </h3>

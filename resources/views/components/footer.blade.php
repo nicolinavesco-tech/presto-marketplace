@@ -37,7 +37,7 @@
     <!-- Section: Social media -->
 
     <!-- Section: Form -->
-    <section class="">
+    {{-- <section class="">
       <form action="">
         <!--Grid row-->
         <div class="row d-flex justify-content-center">
@@ -70,17 +70,17 @@
         </div>
         <!--Grid row-->
       </form>
-    </section>
+    </section> --}}
     <!-- Section: Form -->
 
     <!-- Section: Text -->
-    <section class="mb-4">
+    {{-- <section class="mb-4">
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
         repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam eum
         harum corrupti dicta, aliquam sequi voluptate quas.
       </p>
-    </section>
+    </section> --}}
     <!-- Section: Text -->
 
     <!-- Section: Links -->
@@ -119,7 +119,7 @@
               <a class="text-body" href="#!">Gestisci cookies</a>
             </li>
             <li>
-              <a class="text-body" href="#!">TuttoSubito Vendi</a>
+              <a class="text-body" href="#!">TuttoPresto Vendi</a>
             </li>
           </ul>
         </div>
@@ -129,13 +129,13 @@
         <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
           <ul class="list-unstyled mb-0">
             <li>
-              <a class="text-body" href="#!">TuttoSubito Compra</a>
+              <a class="text-body" href="#!">TuttoPresto Compra</a>
             </li>
             <li>
-              <a class="text-body" href="#!">Servizio TuttoSubito</a>
+              <a class="text-body" href="#!">Servizio TuttoPresto</a>
             </li>
             <li>
-              <a class="text-body" href="#!">Servizio TuttoSubito per Professionisti</a>
+              <a class="text-body" href="#!">Servizio TuttoPresto per Professionisti</a>
             </li>
             <li>
               <a class="text-body" href="#!">Inserisci annuncio</a>
@@ -157,7 +157,7 @@
               <a class="text-body" href="#!">Negozi e Aziende</a>
             </li>
             <li>
-              <a class="text-body" href="#!">Subito per le aziende</a>
+              <a class="text-body" href="#!">Presto per le aziende</a>
             </li>
           </ul>
         </div>
@@ -170,10 +170,22 @@
   <!-- Grid container -->
 
   <!-- Copyright -->
+
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-    © 2020 Copyright:
-    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-  </div>
+    
+    <div class="box-nav mb-2">
+        <a href="" class="logo text-decoration-none text-danger">
+            <img src="./media/logo_bw.png" alt="" class="logo-footer img-fluid">
+        </a>
+    </div>
+
+    <p class="mb-0">
+        © 2020 Copyright:
+        <a class="text-reset fw-bold" href="#">Presto.it</a>
+    </p>
+
+</div>
+
   <!-- Copyright -->
 </footer>
 <!-- Footer -->
