@@ -1,3 +1,5 @@
+/* Navbar */
+
 .logoPresto{
     width:100%;
 }
@@ -55,6 +57,7 @@
     border:none;
     height:40px;
 }
+
 /* Header */
 .row-home{
     height: 20vh;
@@ -64,6 +67,7 @@
     border-radius:5px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
+
 /* First Section */
 
 .firstSection{
