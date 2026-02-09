@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Artisan;
 
 class BecomeRevisor extends Mailable
 {
@@ -36,6 +37,13 @@ class BecomeRevisor extends Mailable
         return new Content(
             view: 'mail.become-revisor',
         );
+    }
+
+    public function makeRevisor(User $user)
+    {
+        Artisan::call('app:make-user-revisor',['email =>%user->email']);
+        return redirect()->back();
+        
     }
 
     /**

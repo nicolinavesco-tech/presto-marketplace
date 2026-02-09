@@ -71,7 +71,16 @@
     border-radius:5px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
-
+.search-btn-wrapper{
+    margin-top: 36px;
+}
+.btnSearch{
+    background: red;
+    width:50px;
+    height:50px;
+    border-radius: 50%;
+    border:transparent;
+}
 #collapseCategorie, #collapsePrezzo, #collapseParola, #collapseTaglie {
     position: absolute;
     z-index: 999;
@@ -115,31 +124,60 @@
     border-radius:50%;
     margin-right:100px;
 }
-.iconBorder{
+.iconTransport, .iconArmchair, .iconBuilding, .iconBriefcase{
     height:80px;
     border: 1px solid #d3d3d370;
     border-radius:10px;
 }
+.iconTransport:hover{
+    background: #e9edff;
+    border:1px solid rgba(22, 18, 255);
+}
 .transport{
     background: #e9edff;
+}
+.transport:hover{
+    border:1px solid rgba(22, 18, 255)
 }
 .titleTransport{
     color: rgba(22, 18, 255);
 }
+.iconArmchair:hover{
+    background: #fdf6e5;
+    border: 1px solid #f2a700;
+}
 .armchair{
     background: #fdf6e5;
+}
+.armchair:hover{
+    border:1px solid #f2a700;
 }
 .titleArmchair{
     color:#f2a700;
 }
+.iconBuilding:hover{
+    background: #f4e9ff;
+    border:1px solid #9924ff;
+}
 .building{
     background: #f4e9ff;
+}
+.building:hover{
+    border:1px solid #9924ff;
+    
 }
 .titleBuilding{
     color:#9924ff;
 }
+.iconBriefcase:hover{
+    background: #e6f8f5;
+    border:1px solid #07bb9c;
+}
 .briefcase{
     background: #e6f8f5;
+}
+.briefcase:hover{
+    border:1px solid #07bb9c;
 }
 .titleBriefcase{
     color:#07bb9c;
