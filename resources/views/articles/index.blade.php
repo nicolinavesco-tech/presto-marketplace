@@ -8,13 +8,13 @@
             </div>
             
         </div>
-        <div class="row height-custum justify-content-center align-items-center text-center mt-5">
+        <div class="articles-grid mt-5">
             @forelse ($articles as $article)
             <div class="col-12 col-md-3">
                 <x-card :article="$article"/>
             </div>
             @empty
-            <div class="row no-item-container mx-0">
+            <div class="no-item-container mx-0">
                 <div class="col-12 text-center">
                     <img src="{{ asset('media/no-articles-icon.svg') }}" alt="" class="no-item-icon">
                 </div>
