@@ -77,7 +77,7 @@
         </div>
     </section>
     <div class="container-fluid">
-        <div class="row justify-content-center align-items-center cardSection">
+        <div class="articles-grid cardSection mt-5">
             @forelse ($articles as $article)
             <div class="col-12 col-md-3 mt-5">
                 <x-card :article="$article" />

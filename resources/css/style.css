@@ -151,7 +151,8 @@
 .categoryBtn{
     border: 1px solid #d3d3d3;
     border-radius:5px;
-    min-width:30%;
+    max-width: 190px;
+    min-width: 190px;
     height:36px;
     padding:5px;
     transition: all 0.2s ease;
@@ -164,8 +165,10 @@
 }
 .btnCard{
     background: #ca4040 !important;
+    min-width: 120px;
 
 }
+
 
 
 .logo-footer {
@@ -303,4 +306,37 @@ a.form-button{
 .carousel-control-next-icon {
     background-image: none;
 }
+
+/* CARD */
+/* GRID CONTAINER */
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    justify-content: space-around;
+    /* padding-left: 60px; */
+}
+/* CARD */
+.card-w {
+    min-width: 280px !important;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* IMAGE */
+.card-img-top {
+    height: 180px;
+    object-fit: cover;
+}
+
+/* BODY */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+
 
