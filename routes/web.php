@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
+use App\Models\Article;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicController;
-use App\Models\Article;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\RevisorController;
 
 Route::get('/', [PublicController::class, "home"])->name('home');
 
@@ -18,3 +19,8 @@ Route::delete('/article/destroy/{article}', [ArticleController::class, 'destroy'
 // rotta categorie
 
 Route::get("/category/{category}", [ArticleController::class, "byCategory"])->name("byCategory");
+
+
+// Rotte per Revisione articoli
+Route::get('/revisor/index', [RevisorController::class,'index'])->name('revisor.index');
+Route::patch('/accept/{article}' , [RevisorController::class,'accept'])->name('accept');
