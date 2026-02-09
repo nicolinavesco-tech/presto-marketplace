@@ -5,7 +5,7 @@
                 <div class="col-12 col-md-6 headerForm d-flex justify-content-center gap-5">
                     <div class="d-flex flex-column align-items-center w-25 mt-3">
                         <p class="fw-bold">Cosa cerchi?</p>
-                        <form action="" role="search" method="GET">
+                        <form action="{{route("article.search")}}" role="search" method="GET">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query"/>
                         </form>
                     </div>

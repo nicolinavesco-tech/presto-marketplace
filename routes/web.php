@@ -18,3 +18,7 @@ Route::delete('/article/destroy/{article}', [ArticleController::class, 'destroy'
 // rotta categorie
 
 Route::get("/category/{category}", [ArticleController::class, "byCategory"])->name("byCategory");
+
+// rotta barra di ricerca
+
+Route::get("/search/article", [PublicController::class, "searchArticles"])->name("article.search");
