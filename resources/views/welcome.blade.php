@@ -6,7 +6,9 @@
                     <div class="d-flex flex-column align-items-center w-25 mt-3">
                         <p class="fw-bold">Cosa cerchi?</p>
                         <form action="{{route("article.search")}}" role="search" method="GET">
+                            @csrf
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query"/>
+                            <button type="submit">Cerca</button>
                         </form>
                     </div>
                     <div class="d-flex flex-column align-items-center w-25 mt-3">
