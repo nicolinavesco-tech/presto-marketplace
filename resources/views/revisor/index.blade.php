@@ -72,11 +72,11 @@
                     <form action="{{route("unDo", ["value"=> null])}}" method="POST">
                         @csrf
                         @method("PATCH")
-                        <button type="submit" class="btn btn-success py-2 px-5 fw-bold"> Annulla ultima revisione
+                        <button type="submit" class="btn btn-success py-2 px-5 fw-bold mt-5"> Annulla ultima revisione
                         </button>
                     </form>
                     <div class="col-auto box-buttons">
-                    <a href="{{route('home')}}" class="mb-5 form-button">Torna all'homepage</a>
+                    <a href="{{route('home')}}" class="mb-5 form-button mt-4">Torna all'homepage</a>
                     </div>
                 </div>
             </div>

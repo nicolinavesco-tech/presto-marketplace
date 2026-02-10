@@ -1,5 +1,5 @@
 <x-layout>
-    <main class="container login-wrapper position-relative" style="background-image: url('{{ asset('media/bg_login_2.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh;">
+    <main class="container login-wrapper position-relative" style="background-image: url('{{ asset('media/bg_login_2.png') }}');">
         <div class="login-hero-text">
         <p class="hero-line-1">
             Vendi ciò che non usi più, e trova ciò che vuoi a dei prezzi super.

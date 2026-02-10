@@ -32,7 +32,7 @@
                 </div>
                 @endauth
             </div>
-            <div class="d-flex w-100 border-bottom border-1 secondLine">
+            <div class="d-flex w-100 border-bottom border-1 secondLine ">
                 <div class="box-nav">
                     <a href="{{route('home')}}" class="logo text-decoration-none text-danger ms-4"><img src="{{ asset('media/logo.png') }}" alt="" class="logoPresto"></a>
                 </div>
@@ -41,8 +41,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse w-100 d-flex justify-content-end me-4 navbarDrop" id="navbarNavDropdown">
-                    <ul class="navbar-nav d-lg-flex flex-row gap-4">
+                <div class="collapse navbar-collapse w-100 d-flex justify-content-end me-4 navbar-custom navbarDrop" id="navbarNavDropdown">
+                    <ul class="navbar-nav  d-lg-flex flex-row gap-4">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{route('home')}}">Home</a>
                         </li>
@@ -52,11 +52,11 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{route('article_create')}}" class="inputCreate fw-bold text-decoration-none">
-                                <i class="fa-solid fa-plus" style="color: #ff0000;"></i> Inserisci annuncio
+                                <i class="fa-solid fa-plus plus-btn" style="color: #ff0000;"></i> Inserisci annuncio
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link" aria-current="page" href="{{route('article_index')}}">Tutti gli articoli</a>
+                            <a class="nav-link all-articles" aria-current="page" href="{{route('article_index')}}">Tutti articoli</a>
                         </li>
                         <form action="{{route('logout')}}" method="POST" class="text-center">
                             @csrf
