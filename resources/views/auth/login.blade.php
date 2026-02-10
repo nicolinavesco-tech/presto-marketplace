@@ -8,7 +8,7 @@
             Perché aspettare? Fai <strong>PRESTO</strong>
         </p>
     </div>
-        <section class="row wh-75 justify-content-end align-items-center login-row">
+        <section class="row wh-75 justify-content-end align-items-end login-row pb-4">
             <article class="col-12 col-lg-4 login-article d-flex">
                 <div class="login-card p-4">
                     <h5 class="text-center"><strong>Accedi su Presto</strong></h5>

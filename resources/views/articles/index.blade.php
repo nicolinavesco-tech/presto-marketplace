@@ -3,18 +3,18 @@
         <div class="row height-custum justify-content-center align-items-center m-0">
             
             <div class="col-12 mt-3 ps-1">
-                <h3 class="text-center mt-5 display-4"> <strong>I tuoi annunci</strong></h3>
+                <h1 class="text-center mt-5">I tuoi annunci</h1>
                 
             </div>
             
         </div>
         <div class="articles-grid mt-5">
             @forelse ($articles as $article)
-            <div class="col-12 col-md-3">
+            <div >
                 <x-card :article="$article"/>
             </div>
             @empty
-            <div class="no-item-container mx-0">
+            <div class="no-item-container mx-0 text-center mt-5">
                 <div class="col-12 text-center">
                     <img src="{{ asset('media/no-articles-icon.svg') }}" alt="" class="no-item-icon">
                 </div>

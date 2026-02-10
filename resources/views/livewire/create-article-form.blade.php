@@ -15,7 +15,7 @@
     </div>
     <div class="mb-3">
       <label for="description" class="form-label text-dark">Descrizione</label>
-      <textarea class="textForm form-control form-control-sm @error('description') is-invalid @enderror" id="description" wire:model="description"></textarea>
+      <textarea rows="4" class="textForm form-control form-control-lg @error('description') is-invalid @enderror" id="description" wire:model="description"></textarea>
       @error('description')
       <p class="fst-italic text-danger">{{ $message }}</p>
       @enderror
