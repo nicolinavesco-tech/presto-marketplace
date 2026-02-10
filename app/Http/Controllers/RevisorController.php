@@ -41,4 +41,6 @@ class RevisorController extends Controller
         Artisan::call('app:make-user-revisor', ['email' =>$user->email]);
         return redirect()->back();
     }
+
+    
 }

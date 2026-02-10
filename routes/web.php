@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Models\Article;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicController;
@@ -28,6 +29,10 @@ Route::patch('/reject/{article}', [RevisorController::class, "reject"])->name("r
 Route::get('/revisor/request', [RevisorController::class,'becomeRevisor'])->middleware('auth')->name('become.revisor');
 Route::get('/make/revisor/{user}' , [RevisorController::class,'makeRevisor'])->name('make.revisor');
 
+
 // rotta barra di ricerca
 Route::get("/search/article", [PublicController::class, "searchArticles"])->name("article.search");
+
+// rotta amministratore
+Route::get("/admin/index", [AdminController::class, "index"])->name("admin.index");
 

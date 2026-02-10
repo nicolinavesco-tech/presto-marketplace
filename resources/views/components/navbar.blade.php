@@ -35,6 +35,13 @@
                     </li>
                     @endif
                     <!-- fine collegamento area revisore -->
+                    {{-- inizio amministratore --}}
+                    @if(Auth::user()->is_admin)
+                    <li class="nav-item">
+                        <a href="{{route("admin.index")}}" class="nav-link btn btn-outline-success btn-sm position-relative w-sm-25">Zona amministratore</a>
+                    </li>
+                    @endif
+                    {{-- fine amministratore --}}
                     <li class="nav-item">
                         <a class="nav-link active fw-bold" href="">Benvenut* {{Auth::user()->name}}</a>
                     </li>
