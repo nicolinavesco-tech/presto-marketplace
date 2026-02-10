@@ -12,7 +12,7 @@
         <div class="row row-home ">
             <form action="{{route("article.search")}}" method="GET">
                 <div class="d-flex inputSearch justify-content-center mt-5 h-75">
-                    <div class="col-12 col-md-6 headerForm d-flex justify-content-center align-items-center">
+                    <div class="col-12 col-md-7 headerForm d-flex justify-content-center align-items-center">
                         <div class="d-flex flex-column align-items-center ">
                             <p class="fw-bold m-0">Cosa cerchi?</p>
                             <input class="form-control me-2 searchBar" type="search" placeholder="Search" aria-label="Search" name="query" />
