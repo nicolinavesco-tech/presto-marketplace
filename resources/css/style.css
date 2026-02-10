@@ -377,10 +377,10 @@ a.form-button{
     line-height: 40px;
     padding: 0 20px;
 }
-.your-articles-container{
-    /* flex: unset; */
+/* .your-articles-container{
+    flex: unset;
     
-}
+} */
 
 @media (max-width: 768px) {
     .no-item-container {
@@ -407,26 +407,6 @@ a.form-button{
     background-image: none;
 }
 
-<<<<<<< HEAD
-/* CARD */
-/* GRID CONTAINER */
-.articles-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
-    justify-content: space-around;
-    /* padding-left: 20px; */
-    max-width: 1200px;
-    margin: 0 auto;
-    justify-items: center;
-}
-/* CARD */
-.card-w {
-    min-width: 280px !important;
-    min-height: 420px;
-    display: flex;
-    flex-direction: column;
-=======
 /* Detail Article */
 .btn-custom{
     background: #f9423a;
@@ -434,7 +414,6 @@ a.form-button{
     border:none;
     height: 40px;
     border-radius:5px;
->>>>>>> b5666ad46808179a821225b003ee45e596e02b4d
 }
 
 /* Footer */
