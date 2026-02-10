@@ -36,4 +36,5 @@ Route::get("/category/{category}", [ArticleController::class, "byCategory"])->na
 
 // rotta amministratore
 Route::get("/admin/index", [AdminController::class, "index"])->name("admin.index");
+Route::get("/admin/request", [AdminController::class, "becomeAdmin"])->name("become.revisor");
 
