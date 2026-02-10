@@ -71,7 +71,7 @@
                 <div class="iconBuilding  w-25 d-flex justify-content-center align-items-center">
                     <div class="iconDiv d-flex align-items-center justify-content-around gap-5 building">
                         <img src="./media/skyline.png" alt="building" class="imgFirstSection">
-                        <h5 class="fw-bold titleBuilding">Immobili</h5>
+                        <h5 class="fw-bold titleBuilding">Casa</h5>
                     </div>
                 </div>
                 <div class="iconBriefcase  w-25 d-flex justify-content-center align-items-center">
@@ -84,7 +84,7 @@
         </div>
     </section>
     <div class="container-fluid">
-        <div class="articles-grid cardSection mt-5">
+        <div class="articles-grid d-flex cardSection mt-5">
             @forelse ($articles as $article)
             <div class="col-12 col-md-3 mt-5">
                 <x-card :article="$article" />

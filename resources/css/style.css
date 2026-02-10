@@ -1,3 +1,5 @@
+/* NAVBAR */
+
 .navbar {
     --mdb-navbar-box-shadow: none;
     box-shadow: none !important;
@@ -17,14 +19,11 @@
     font-size: 14px;
     color: rgb(121, 121, 121);
     padding-left:16px;
-    
 }
-
 .logo{
     font-size: 30px;
     font-weight: 500;
 }
-
 .inputCreate{
     display:inline-flex;
     align-items: center;
@@ -81,8 +80,6 @@
    margin-right:26px;
 }
 }
-
-
 
 /* Header */
 .row-home{
@@ -228,9 +225,6 @@
 }
 
 
-/* Card Section home */
-
-
 /* Info Card */
 .categoryBtn{
     border: 1px solid #d3d3d3;
@@ -239,26 +233,41 @@
     min-width: 190px;
     height:36px;
     padding:5px;
-    transition: all 0.2s ease;
 }
-.categoryBtn:hover{
-    border: 2px solid rgb(97, 145, 248);
+.card-w {
+    min-height: 400px;
 }
+
 .detailBtn{
-    background-color: #f9423a;
+    background-color: rgb(249, 66, 58);
 }
 .btnCard{
-    background: #ca4040 !important;
+    background: #f9423a !important;
     min-width: 120px;
 
 }
-
-
-
-.logo-footer {
-    max-width: 140px;
-    height: auto;
+/* GRID CONTAINER */
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    justify-content:center;
 }
+
+/* IMAGE */
+.card-img-top {
+    height: 180px;
+    object-fit: cover;
+}
+
+/* BODY */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
 
 /* LOGIN */
 .login-article {
@@ -398,6 +407,7 @@ a.form-button{
     background-image: none;
 }
 
+<<<<<<< HEAD
 /* CARD */
 /* GRID CONTAINER */
 .articles-grid {
@@ -416,21 +426,20 @@ a.form-button{
     min-height: 420px;
     display: flex;
     flex-direction: column;
+=======
+/* Detail Article */
+.btn-custom{
+    background: #f9423a;
+    width:120px;
+    border:none;
+    height: 40px;
+    border-radius:5px;
+>>>>>>> b5666ad46808179a821225b003ee45e596e02b4d
 }
 
-/* IMAGE */
-.card-img-top {
-    height: 180px;
-    object-fit: cover;
+/* Footer */
+.logo-footer {
+    max-width: 140px;
+    height: auto;
 }
-
-/* BODY */
-.card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 1;
-}
-
-
 

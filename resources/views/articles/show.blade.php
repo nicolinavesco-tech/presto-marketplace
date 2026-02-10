@@ -41,14 +41,14 @@
                 <h2 class="mt-5"><span class="fw-bold">Titolo:</span> {{$article->title}}</h2>
                 <div class="d-flex flex-column justify-content-center h-50 mt-5">
                     <h5 class="mt-5">Descrizione:</h5>
-                    <p>{{$article->description}}</p>
+                    <p class="mt-3">{{$article->description}}</p>
                     <h4 class="fw-bold mt-5">Prezzo: {{$article->price}} €</h4>
                     @if(Auth::check() && Auth::user()->id == $article->user->id)
                     
                     <form action="{{route('article_destroy', compact('article'))}}" method="post">
                         @csrf
                         @method('delete')
-                        <button type="submit" class="btn btn-delete btn-custom bg-danger text-white">ELIMINA</button>
+                        <button type="submit" class="btn-custom text-white mt-5"><i class="fa-regular fa-trash-can"></i>  Elimina</button>
                         
                     </form>
                     @endif

@@ -8,7 +8,7 @@
             </div>
             
         </div>
-        <div class="articles-grid mt-5">
+        <div class="d-flex justify-content-evenly mt-5">
             @forelse ($articles as $article)
             <div >
                 <x-card :article="$article"/>

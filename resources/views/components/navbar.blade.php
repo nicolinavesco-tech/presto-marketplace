@@ -11,7 +11,7 @@
         </div>
         <div class="d-flex w-100 border-bottom border-1 secondLine">
             <div class="box-nav">
-                <a href="{{route('home')}}" class="logo text-decoration-none text-danger ms-4"><img src="./media/logo.png" alt="" class="logoPresto"></a>
+                <a href="{{route('home')}}" class="logo text-decoration-none text-danger ms-4"><img src="{{ asset('media/logo.png') }}" alt="" class="logoPresto"></a>
             </div>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
@@ -27,7 +27,7 @@
                     <!-- inizio collegamento area revisore -->
                     @if(Auth::user()->is_revisor)
                     <li class="nav-item">
-                        <a href="{{route("revisor.index")}}" class="nav-link btn btn-outline-success btn-sm position-relative w-sm-25">Zona revisore
+                        <a href="{{route("revisor.index")}}" class="nav-link btn btn-outline-danger btn-sm position-relative w-sm-25">Zona revisore
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                 {{\App\Models\Article::toBeRevisedCount()}}
                             </span>
@@ -59,19 +59,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Lavora con noi</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorie</a>
-                        <ul class="dropdown-menu">
-                            @foreach($categories as $category)
-                            <li>
-                                <a href="{{route("byCategory", ["category" => $category])}}" class="dropdown-item text-capitalize">{{$category->name}}</a>
-                            </li>
-                            @if (!$loop->last)
-                            <hr class="dropdown-divider">
-                            @endif
-                            @endforeach
-                        </ul>
                     </li>
                     @endauth
                 </ul>
