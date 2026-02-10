@@ -8,7 +8,7 @@
             </div>
             
         </div>
-        <div class="d-flex justify-content-evenly mt-5">
+        <div class="d-flex justify-content-evenly mt-5 flex-wrap">
             @forelse ($articles as $article)
             <div >
                 <x-card :article="$article"/>
