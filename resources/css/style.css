@@ -274,7 +274,7 @@
 
 /* LOGIN */
 .login-article {
-    margin-right: 20px; 
+    margin-right: 40px; 
 }
 
 .login-card {
@@ -282,11 +282,15 @@
     padding: 40px;
     border-radius: 16px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    min-height: 500px;
+    min-height: 580px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .login-row {
-    min-height: 100%; 
+    min-height: 100vh;
+    padding-bottom: 20px; 
 }
 
 
@@ -425,3 +429,9 @@ a.form-button{
     height: auto;
 }
 
+.container-admin{
+    min-height: 60vh;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+}

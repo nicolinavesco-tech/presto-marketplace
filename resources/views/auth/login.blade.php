@@ -8,9 +8,9 @@
             Perché aspettare? Fai <strong>PRESTO</strong>
         </p>
     </div>
-        <section class="row wh-75 justify-content-end align-items-end login-row pb-4">
+        <section class="row wh-75 justify-content-end align-items-end login-row">
             <article class="col-12 col-lg-4 login-article d-flex">
-                <div class="login-card p-4">
+                <div class="login-card">
                     <h5 class="text-center"><strong>Accedi su Presto</strong></h5>
                     <p class="text-center">
                         Compra e vendi in una community con oltre 10 milioni di utenti.
