@@ -2,7 +2,7 @@
     <div>
         <div class="row py-3 justify-content-center align-items-center text-center">
             <div class="col-12">
-                <h1>Risultati per la ricerca "<span class="fst-italic">{{$query}}</span>"</h1>
+                <h1>{{ __('ui.searchResultsTitle') }} "<span class="fst-italic">{{$query}}</span>"</h1>
             </div>
         </div>
         <div class="row justify-content-center align-items-center pb-3">
@@ -19,10 +19,10 @@
                 
                 <div class="col-12">
                     <h4 class="text-center">
-                        <strong>Nessun articolo corrisponde alla tua ricerca</strong>
+                        <strong>{{ __('ui.noSearchResults') }}</strong>
                     </h4>
                     <div class="col-auto box-buttons">
-                    <a href="{{route('home')}}" class="mb-5 form-button">Torna all'homepage</a>
+                    <a href="{{route('home')}}" class="mb-5 form-button">{{ __('ui.backToHome') }}</a>
                     </div>
                 </div>
             </div>

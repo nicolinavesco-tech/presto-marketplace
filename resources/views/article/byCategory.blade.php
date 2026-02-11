@@ -2,7 +2,7 @@
     <main class="container">
         <section class="row">
             <article class="col-12">
-                <h1 class="text-center mt-5">Articoli della categoria: <span>{{$category->name}}</span></h1>
+                <h1 class="text-center mt-5">{{ __('ui.categoryListings') }} <span>{{$category->name}}</span></h1>
             </article>
         </section>
         <section class="row mt-5">
@@ -12,9 +12,9 @@
                 </div>
             @empty
                 <div class="col-12 text-center">
-                    <h3>Non sono ancora stati creati articoli per questa categoria!</h3>
+                    <h3>{{ __('ui.noListings') }}</h3>
                     @auth
-                        <a href="{{route("article_create")}}" class="btn btn-dark my-5">Pubblica un articolo</a>
+                        <a href="{{route("article_create")}}" class="btn btn-dark my-5">{{ __('ui.postAd') }}</a>
                     @endauth
                 </div>
             @endforelse

@@ -12,7 +12,7 @@
 
         <div class="row">
                 <h1 class="text-center pb-3">
-                    Revisor dashboard
+                    {{ __('ui.revisorDashboard') }}
                 </h1>
         </div>
         @if ($article_to_check)
@@ -79,16 +79,16 @@
                 
                 <div class="col-12">
                     <h4 class="text-center">
-                        <strong>Nessun articolo da revisionare</strong>
+                        <strong>{{ __('ui.noListingsToReview') }}</strong>
                     </h4>
                     <form action="{{route("unDo", ["value"=> null])}}" method="POST">
                         @csrf
                         @method("PATCH")
-                        <button type="submit" class="btn btn-cancel-revisor text-dark py-2 px-5 fw-bold mt-5"> Annulla ultima revisione
+                        <button type="submit" class="btn btn-cancel-revisor text-dark py-2 px-5 fw-bold mt-5"> {{ __('ui.undoLastReview') }}
                         </button>
                     </form>
                     <div class="col-auto box-buttons">
-                    <a href="{{route('home')}}" class="mb-5 form-button mt-4">Torna all'homepage</a>
+                    <a href="{{route('home')}}" class="mb-5 form-button mt-4">{{ __('ui.returnHome') }}</a>
                     </div>
                 </div>
             </div>
