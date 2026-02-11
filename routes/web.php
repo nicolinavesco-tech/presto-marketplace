@@ -37,4 +37,7 @@ Route::get("/category/{category}", [ArticleController::class, "byCategory"])->na
 // rotta amministratore
 Route::get("/admin/index", [AdminController::class, "index"])->name("admin.index");
 
+// Rotta per le lingue
+Route::post('/lingua/{lang}', [PublicController::class, 'setLanguage'])->name('setLocale');
+
 

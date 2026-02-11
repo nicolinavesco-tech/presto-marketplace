@@ -8,7 +8,7 @@
         <div class="d-flex gap-2 mt-4">
 
             <a href="{{route('byCategory', ['category'=>$article->category])}}"
-                class="btn btn-outline bg-light text-danger fw-bold categoryBtn text-center flex-fill">
+                class="btn btn-outline fw-bold categoryBtn text-center flex-fill">
                 {{$article->category->name}}
             </a>
             <a href="{{route('article_show', compact('article'))}}"
