@@ -41,7 +41,7 @@
                     <form action="{{route("reject", ["article"=>$article_to_check])}}" method="POST">
                         @csrf
                         @method("PATCH")
-                        <button type="submit" class="btn btn-danger py-2 px-5 fw-bold">
+                        <button type="submit" class="btn btn-cancel py-2 px-5 fw-bold">
                             Rifiuta
                         </button>
                     </form>
@@ -51,7 +51,7 @@
                     <form action="{{route("accept", ["article"=>$article_to_check])}}" method="POST">
                         @csrf
                         @method("PATCH")
-                        <button type="submit" class="btn btn-success py-2 px-5 fw-bold">
+                        <button type="submit" class="btn btn-accept py-2 px-5 fw-bold">
                             Accetta
                         </button>
                     </form>
@@ -72,7 +72,7 @@
                     <form action="{{route("unDo", ["value"=> null])}}" method="POST">
                         @csrf
                         @method("PATCH")
-                        <button type="submit" class="btn btn-success py-2 px-5 fw-bold mt-5"> Annulla ultima revisione
+                        <button type="submit" class="btn btn-cancel-revisor text-dark py-2 px-5 fw-bold mt-5"> Annulla ultima revisione
                         </button>
                     </form>
                     <div class="col-auto box-buttons">

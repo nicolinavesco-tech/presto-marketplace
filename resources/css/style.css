@@ -312,10 +312,11 @@
 .categoryBtn {
     border: 1px solid #d3d3d3;
     border-radius: 5px;
-    /* max-width: 190px; */
     min-width: 190px;
     height: 36px;
     padding: 5px;
+    background: rgb(250, 247, 240) !important;
+    color: #f9423a  !important;
 }
 
 .card-w {
@@ -545,6 +546,19 @@ a.form-button {
     border: none;
     height: 40px;
     border-radius: 5px;
+}
+
+/* Revisor */
+.btn-cancel-revisor{
+    background: #77dd77 !important;
+}
+.btn-accept{
+    background: #77dd77 !important;
+    color:black !important;
+}
+.btn-cancel{
+    background: #f9423a !important;
+    color: white !important;
 }
 
 /* Footer */

@@ -3,7 +3,7 @@
         <div class="row height-custum justify-content-center align-items-center m-0">
             
             <div class="col-12 mt-3 ps-1">
-                <h1 class="text-center mt-5">I tuoi annunci</h1>
+                <h1 class="text-center mt-5">{{ __('ui.allArticles') }}</h1>
                 
             </div>
             

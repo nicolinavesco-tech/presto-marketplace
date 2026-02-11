@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid d-flex flex-column p-0">
         <div class="d-none d-lg-flex justify-content-center w-100 border-bottom border-1 firstLine">
+            <x-_locale lang="it"/>
+            <x-_locale lang="en"/>
+            <x-_locale lang="ru"/>
             <div class="d-flex gap-4 mx-auto">
                 <span class="topbar-link">Magazine</span>
                 <span class="topbar-link">Consigli per la vendita</span>
