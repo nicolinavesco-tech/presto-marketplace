@@ -43,9 +43,9 @@
         @enderror
       </div>
 
-      @if ($temporary_images)
+      @if (!empty($images))
       <div class="row border border-4 border-success rounded shadow py-4">
-        @foreach ($temporary_images as $key => $image)
+        @foreach ($images as $key => $image)
         <div class="col-6 col-md-4 d-flex flex-column align-items-center my-3">
           <div class="img-preview mx-auto shadow rounded"
                style="background-image: url({{ $image->temporaryUrl() }});">
