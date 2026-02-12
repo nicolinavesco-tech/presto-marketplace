@@ -23,25 +23,8 @@ class CreateArticleForm extends Component
     public $category;
     public $article;
 
-    public function save()
-    {
-        $this->validate();
 
-        $this->article = Article::create([
-            'title' => $this->title,
-            'description' => $this->description,
-            'price' => $this->price,
-            'category_id' => $this->category,
-            'user_id' => Auth::id(),
-        ]);
-
-        $this->reset();
-        
-        session()->flash("status", "Articolo caricato con successo!");
-
-    }
-
-
+  
     public function store(){
         $this->validate();
 

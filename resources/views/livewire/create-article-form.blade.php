@@ -6,7 +6,7 @@
   @endif
 
   <div class="d-flex justify-content-center align-items-center py-5 formDiv">
-    <form class="shadow-lg rounded p-2 my-2 create-article-form" wire:submit="save">
+    <form class="shadow-lg rounded p-2 my-2 create-article-form" wire:submit="store">
 
       <div class="mb-3">
         <label for="title" class="form-label text-dark">{{ __('ui.fieldTitle') }}</label>
