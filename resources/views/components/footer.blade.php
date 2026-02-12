@@ -91,35 +91,16 @@
         <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
           <ul class="list-unstyled mb-0">
             <li>
-              <a class="text-body" href="#!">Assistenza</a>
+              <a class="text-body" href="#!">{{ __('ui.assistance') }}</a>
             </li>
             <li>
-              <a class="text-body" href="#!">Regole</a>
+              <a class="text-body" href="#!">{{ __('ui.rules') }}</a>
             </li>
             <li>
-              <a class="text-body" href="#!">Sicurezza</a>
+              <a class="text-body" href="#!">{{ __('ui.security') }}</a>
             </li>
             <li>
-              <a class="text-body" href="#!">Condizioni</a>
-            </li>
-          </ul>
-        </div>
-        <!--Grid column-->
-
-        <!--Grid column-->
-        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-          <ul class="list-unstyled mb-0">
-            <li>
-              <a class="text-body" href="#!">Privacy</a>
-            </li>
-            <li>
-              <a class="text-body" href="#!">Accessibilità</a>
-            </li>
-            <li>
-              <a class="text-body" href="#!">Gestisci cookies</a>
-            </li>
-            <li>
-              <a class="text-body" href="#!">TuttoPresto Vendi</a>
+              <a class="text-body" href="#!">{{ __('ui.terms') }}</a>
             </li>
           </ul>
         </div>
@@ -129,16 +110,16 @@
         <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
           <ul class="list-unstyled mb-0">
             <li>
-              <a class="text-body" href="#!">TuttoPresto Compra</a>
+              <a class="text-body" href="#!">{{ __('ui.privacy') }}</a>
             </li>
             <li>
-              <a class="text-body" href="#!">Servizio TuttoPresto</a>
+              <a class="text-body" href="#!">{{ __('ui.accessibility') }}</a>
             </li>
             <li>
-              <a class="text-body" href="#!">Servizio TuttoPresto per Professionisti</a>
+              <a class="text-body" href="#!">{{ __('ui.manageCookies') }}</a>
             </li>
             <li>
-              <a class="text-body" href="#!">Inserisci annuncio</a>
+              <a class="text-body" href="#!">{{ __('ui.tuttoPrestoSell') }}</a>
             </li>
           </ul>
         </div>
@@ -148,21 +129,40 @@
         <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
           <ul class="list-unstyled mb-0">
             <li>
-              <a class="text-body" href="#!">Promuovi annuncio</a>
+              <a class="text-body" href="#!">{{ __('ui.tuttoPrestoBuy') }}</a>
             </li>
             <li>
-              <a class="text-body" href="#!">Consigli per la vendita</a>
+              <a class="text-body" href="#!">{{ __('ui.tuttoPrestoService') }}</a>
             </li>
             <li>
-              <a class="text-body" href="#!">Negozi e Aziende</a>
+              <a class="text-body" href="#!">{{ __('ui.tuttoPrestoServiceProfessionals') }}</a>
             </li>
             <li>
-              <a class="text-body" href="{{route('become.revisor')}} ">Lavora come revisore per Noi</a>
+              <a class="text-body" href="{{route('article_create')}}">{{ __('ui.postAd') }}</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a class="text-body" href="#!">{{ __('ui.promoteAd') }}</a>
+            </li>
+            <li>
+              <a class="text-body" href="#!">{{ __('ui.sellingTips') }}</a>
+            </li>
+            <li>
+              <a class="text-body" href="#!">{{ __('ui.shopsAndCompanies') }}</a>
+            </li>
+            <li>
+              <a class="text-body" href="{{route('become.revisor')}} ">{{ __('ui.workAsReviewer') }}</a>
               
             </li>
 
             <li>
-              <a class="text-body" href="#!">Presto per le aziende</a>
+              <a class="text-body" href="#!">{{ __('ui.prestoForCompanies') }}</a>
             </li>
           </ul>
         </div>

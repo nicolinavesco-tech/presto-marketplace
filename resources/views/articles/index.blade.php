@@ -10,7 +10,7 @@
         </div>
         <div class="d-flex justify-content-evenly mt-5 flex-wrap">
             @forelse ($articles as $article)
-            <div >
+            <div class="">
                 <x-card :article="$article"/>
             </div>
             @empty
@@ -21,13 +21,13 @@
                 
                 <div class="col-12">
                     <h6 class="text-center">
-                        <strong>Non hai annunci online</strong>
+                        <strong>{{ __('ui.noUserListings') }}</strong>
                     </h6>
                     <p class="text-center">
-                        Comincia a vendere. Ci guadagni tu e ci guadagna anche il pianeta.
+                        {{ __('ui.startSellingText') }}
                     </p>
                     <div class="col-auto box-buttons">
-                    <a href="{{route('article_create')}}" class="mb-5 form-button">Inserisci annuncio</a>
+                    <a href="{{route('article_create')}}" class="mb-5 form-button">{{ __('ui.postAd') }}</a>
                     </div>
                 </div>
             </div>

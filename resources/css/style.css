@@ -5,6 +5,11 @@
     box-shadow: none !important;
 }
 
+.flags {
+    border: none;
+
+}
+
 .logoPresto {
     width: 100%;
 }
@@ -85,11 +90,10 @@
         display: flex;
         justify-content: center;
     }
-
-    .navbarDrop,
-    .navbar-nav {
-        margin-right: 26px;
-
+    #navbarNavDropdown {
+        justify-content: center !important;
+        margin:0;
+        padding-top:20px;
     }
 
     .helloPhrase {
@@ -316,7 +320,7 @@
     height: 36px;
     padding: 5px;
     background: rgb(250, 247, 240) !important;
-    color: #f9423a  !important;
+    color: #f9423a !important;
 }
 
 .card-w {
@@ -478,7 +482,8 @@
     max-width: 420px;
     box-sizing: border-box;
 }
-.img-preview{
+
+.img-preview {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -486,9 +491,7 @@
     width: 120px;
 }
 
-@media screen and (max-width:768px) {
-    
-}
+@media screen and (max-width:768px) {}
 
 
 /* Tutti gli articoli */
@@ -521,9 +524,8 @@ a.form-button {
     }
 }
 
-.create-article-form {
-    min-width: 500px;
-    /* background-color: #e9c460; */
+.create-article-form {    
+    min-width: 400px;
     background-color: #e6b431;
 }
 
@@ -548,15 +550,20 @@ a.form-button {
     border-radius: 5px;
 }
 
+/* Add article form  livewire*/
+.formDiv {}
+
 /* Revisor */
-.btn-cancel-revisor{
+.btn-cancel-revisor {
     background: #77dd77 !important;
 }
-.btn-accept{
+
+.btn-accept {
     background: #77dd77 !important;
-    color:black !important;
+    color: black !important;
 }
-.btn-cancel{
+
+.btn-cancel {
     background: #f9423a !important;
     color: white !important;
 }
@@ -573,4 +580,3 @@ a.form-button {
     align-items: start;
     justify-content: center;
 }
-

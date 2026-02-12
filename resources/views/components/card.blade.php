@@ -13,7 +13,7 @@
             </a>
             <a href="{{route('article_show', compact('article'))}}"
                 class="btnCard text-center fw-bold btn text-white flex-fill">
-                Dettaglio
+                {{ __('ui.details') }}
             </a>
 
 
