@@ -54,11 +54,11 @@
                 </div>
             </form>
         </div>
-        <div class="d-flex gap-4 mt-2 justify-content-center">
-            <span><i class="fa-solid fa-check" style="color: #2E7D32;"></i> Oltre 1M di annunci</span>
-            <span><i class="fa-solid fa-check" style="color: #2E7D32;"></i> Pagamenti sicuri</span>
-            <span><i class="fa-solid fa-check" style="color: #2E7D32;"></i> Assistenza dedicata</span>
-            <span><i class="fa-solid fa-check" style="color: #2E7D32;"></i> Community verificata</span>
+        <div class="d-flex gap-4 mt-2 justify-content-center fidelity-message">
+            <span><i class="fa-solid fa-check" style="color: #2E7D32;"></i> <br>{{ __('ui.overListings') }}</span>
+            <span><i class="fa-solid fa-check" style="color: #2E7D32;"></i> {{ __('ui.securePayments') }}</span>
+            <span><i class="fa-solid fa-check" style="color: #2E7D32;"></i> <br> {{ __('ui.dedicatedSupport') }}</span>
+            <span><i class="fa-solid fa-check" style="color: #2E7D32;"></i> <br> {{ __('ui.verifiedCommunity') }}</span>
         </div>
     </header>
     <!-- First section -->
@@ -98,25 +98,25 @@
             <div class="d-flex justify-content-center flex-column text-center mt-5">
 
                 <div class="">
-                    <h4 class="fw-bold">Come funziona TuttoPresto?</h4>
-                    <p class="text-muted">Vendi, offri servizi o trova affari in pochi passi.</p>
+                    <h4 class="fw-bold">{{ __('ui.howItWorks') }}</h4>
+                    <p class="text-muted">{{ __('ui.sellOfferFind') }}</p>
                 </div>
 
-                <div class="d-flex justify-content-center gap-5 mt-3">
+                <div class="d-flex justify-content-center gap-5 mt-3 second-section-mobile">
                     <div class="img-second-section">
                         <img src="./media/How-it-works/image1.png" alt="Immagine pubblica" class="img-fluid w-100">
-                        <h5 class="fw-bold mt-4">Pubblica</h5>
-                        <p class="text-muted w-75 ms-4">Pubblica annunci di vendita o servizio</p>
+                        <h5 class="fw-bold mt-4">{{ __('ui.publish') }}</h5>
+                        <p class="text-muted w-75 ms-4">{{ __('ui.publishAds') }}</p>
                     </div>
                     <div class=" img-second-section">
                         <img src="./media/How-it-works/image2.png" alt="Immagine trova" class="img-fluid w-100">
-                        <h5 class="fw-bold mt-4">Trova</h5>
-                        <p class="text-muted ">Cerca quello che ti serve vicino a te</p>
+                        <h5 class="fw-bold mt-4">{{ __('ui.find') }}</h5>
+                        <p class="text-muted ">{{ __('ui.findNearby') }}</p>
                     </div>
                     <div class="img-second-section">
                         <img src="./media/How-it-works/image3.png" alt="Immagine guadagna" class="img-fluid w-100">
-                        <h5 class="fw-bold mt-4">Guadagna</h5>
-                        <p class="text-muted w-75 ms-5">Chiudi l'affare perfetto e guadagna in sicurezza</p>
+                        <h5 class="fw-bold mt-4">{{ __('ui.earn') }}</h5>
+                        <p class="text-muted w-75 ms-5">{{ __('ui.closeDeal') }}</p>
                     </div>
                 </div>
             </div>
@@ -167,18 +167,18 @@
         <div class="row">
             <div class="d-flex col-12 justify-content-center align-items-center gap-3">
                 <div class="d-flex flex-column w-50">
-                    <h5 class="fw-semibold">Hai un'azienda e ti interessa TuttoPresto?</h5>
-                    <p class="fst-italic text-muted">Vendi in modo semplice e sicuro con i servizi di pagamento e spedizione Presto. <br> Ogni giorno milioni di persone possono scoprire i tuoi annunci.</p>
+                    <h5 class="fw-semibold">{{ __('ui.haveBusiness') }}</h5>
+                    <p class="fst-italic text-muted text-mobile">{{ __('ui.sellEasy') }} <br> {{ __('ui.millionsDiscover') }}</p>
                 </div>
 
-                <div class="img-third-section d-flex w-25 justify-content-center gap-2">
+                <div class="img-fourth-section d-flex w-25 justify-content-center gap-2">
                     <div class="d-flex flex-column align-items-center">
                         <img src="./media/Section4/firstImage.png" alt="third-section" class="img-fluid w-100 ">
-                        <a href="" class="findMore">Scopri di più</a>
+                        <a href="" class="findMore">{{ __('ui.learnMore') }}</a>
                     </div>
-                    <div class="d-flex flex-column align-items-center mt-2">
+                    <div class="d-flex flex-column align-items-center mt-2 ">
                         <img src="./media/Section4/SecondImage.png" alt="third-section" class="img-fluid w-100">
-                        <a href="" class="findMore">Scopri di più</a>
+                        <a href="" class="findMore">{{ __('ui.activateNow') }}</a>
                     </div>
                 </div>
             </div>
@@ -187,16 +187,16 @@
     <!-- Fifth section -->
     <section class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-12 d-flex justify-content-center align-items-center border border-1 w-75">
-                <div class="w-25">
-                    <img src="./media/section5/imgRevisor.png" alt="third-section" class="img-fluid w-75">
+            <div class="col-12 d-flex justify-content-center align-items-center border border-1 box-section5">
+                <div class="w-25 image-section5">
+                    <img src="./media/section5/imgRevisor.png" alt="third-section" class="img-fluid img-section5">
                 </div>
-                <div class="d-flex flex-column w-50">
-                    <h5 class="fw-semibold">Hai occhio per i dettagli? Fallo diventare un guadagno.</h5>
-                    <p class="fst-italic text-muted">Diventa Revisore e inizia oggi.</p>
+                <div class="d-flex flex-column text-section5">
+                    <h5 class="fw-semibold">{{ __('ui.eyeForDetails') }}</h5>
+                    <p class="fst-italic text-muted">{{ __('ui.becomeReviewer') }}</p>
                 </div>
-                <div>
-                    <a href="" class="work-with-us">Lavora con noi</a>
+                <div class="section5-btn">
+                    <a href="" class="work-with-us">{{ __('ui.workWithUs') }}</a>
                 </div>
             </div>
         </div>
@@ -204,14 +204,14 @@
     <!-- Sixth section -->
     <section class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-12 d-flex justify-content-start align-items-center gap-4">
-                <div class="w-50 d-flex justify-content-end">
-                    <img src="./media/section6/img-6-section.png" alt="Immagine fai spazio nell'armadio" class="img-fluid w-75 ">
+            <div class="col-12 d-flex justify-content-start align-items-center gap-4 content-section6">
+                <div class="img-section6">
+                    <img src="./media/section6/img-6-section.png" alt="Immagine fai spazio nell'armadio" class="img-fluid image-section6">
                 </div>
                 <div class="d-flex flex-column  ">
                     <span class="fw-bold titleSpan">Presto</span>
-                    <h5 class="fw-bold">Fai spazio nel tuo armadio</h5>
-                    <p class="text-muted">Per i tuoi affare è meglio Presto</p>
+                    <h5 class="fw-bold">{{ __('ui.makeSpace') }}</h5>
+                    <p class="text-muted">{{ __('ui.betterWithPresto') }}</p>
                 </div>
             </div>
         </div>
@@ -221,20 +221,20 @@
         <div class="row seventhSection align-items-center">
             <div class="col-12 col-md-6 d-flex flex-column ">
                 <div class="d-flex justify-content-end align-items-center gap-4 me-5">
-                    <h5 class="fw-bold text-white mb-5">Scarica l'app Presto</h5>
+                    <h5 class="fw-bold text-white mb-5">{{ __('ui.downloadApp') }}</h5>
                     <img src="./media/section7/qr-code.png" alt="Immagine sezione 7" class="qr-code">
                 </div>
                 <div class="d-flex justify-content-center align-items-centerbg-warning gap-4 mt-5 ms-4">
                     <div class="d-flex flex-column">
                         <img src="./media/section7/stars.png" alt="Immagine sezione 7" class="img-fluid star">
-                        <span class="text-white fw-bold">4.7 <i class="fa-brands fa-apple"></i> AppStore</span>
+                        <span class="text-white fw-bold">4.7 <i class="fa-brands fa-apple"></i> {{ __('ui.appStore') }}</span>
                     </div>
                     <div class="d-flex flex-column">
                         <img src="./media/section7/stars.png" alt="Immagine sezione 7" class="img-fluid star">
-                        <span class="text-white fw-bold">4.7 <i class="fa-brands fa-google-play"></i> PlayStore</span>
+                        <span class="text-white fw-bold">4.7 <i class="fa-brands fa-google-play"></i> {{ __('ui.playStore') }}</span>
                     </div>
                     <div class="d-flex align-items-center ms-5 paragraph">
-                        <p class="text-white">basato su oltre 10.000 recensioni</p>
+                        <p class="text-white">{{ __('ui.basedOnReviews') }}</p>
                     </div>
 
 

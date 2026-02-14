@@ -1,12 +1,12 @@
 <?php
 return
     [
+        // dropdown mobile
+        'menu' => 'Altro',
+        'language' => 'Lingua',
+        // Navbar
         'hello' => 'Ciao',
         'allArticles' => 'Tutti gli articoli',
-        'engine' => 'Motori',
-        'market' => 'Market',
-        'property'   => 'Casa',
-        'work'   => 'Lavoro',
         'magazine' => 'Magazine',
         'sellingTips' => 'Consigli per la vendita',
         'shopsBusiness' => 'Negozi e Aziende',
@@ -20,6 +20,7 @@ return
         'logout' => 'Esci',
         'revisor' => 'Revisore',
         'admin' => 'Admin',
+        // Header
         'whatSearch' => 'Cosa stai cercando?',
         'search' => 'Cerca',
         'chooseCategory' => 'Scegli una categoria',
@@ -27,8 +28,46 @@ return
         'where' => 'Dove?',
         'location' => 'Località',
         'allItaly' => 'Tutta Italia',
+        'overListings' => 'Oltre 1M di annunci',
+        'securePayments' => 'Pagamenti sicuri',
+        'dedicatedSupport' => 'Assistenza dedicata',
+        'verifiedCommunity' => 'Community verificata',
+        // First section
+        'engine' => 'Motori',
+        'market' => 'Market',
+        'property'   => 'Casa',
+        'work'   => 'Lavoro',
+        // Second section
+        'howItWorks' => 'Come funziona Presto?',
+        'sellOfferFind' => 'Vendi, offri servizi o trova affari in pochi passi.',
+        'publish' => 'Pubblica',
+        'publishAds' => 'Pubblica annunci di vendita o servizio',
+        'find' => 'Trova',
+        'findNearby' => 'Cerca quello che ti serve vicino a te',
+        'earn' => 'Guadagna',
+        'closeDeal' => 'Chiudi l\'affare perfetto e guadagna in sicurezza.',
+        // Third section
         'details' => 'Dettaglio',
-        'highlighted_for_you' => 'In evidenza per te', 
+        'highlighted_for_you' => 'In evidenza per te',
+        // Fourth section
+        'haveBusiness' => 'Hai un\'azienda e ti interessa Presto?',
+        'sellEasy' => 'Vendi in modo semplice e sicuro con i servizi di pagamento e spedizione Presto.',
+        'millionsDiscover' => 'Ogni giorno milioni di persone possono scoprire i tuoi annunci.',
+        'learnMore' => 'Scopri di più',
+        'activateNow' => 'Attiva subito',
+        // Fifth section
+        'eyeForDetails' => 'Hai occhio per i dettagli? Fallo diventare un guadagno.',
+        'becomeReviewer' => 'Diventa Revisore e inizia oggi.',
+        'workWithUs' => 'Lavora con noi',
+        // Sixth section
+        'makeSpace' => 'Fai spazio nel tuo armadio.',
+        'betterWithPresto' => 'Per i tuoi affari è meglio Presto.',
+        // Seventh section
+        'downloadApp' => 'Scarica l\'app Presto.',
+        'appStore' => 'App Store',
+        'playStore' => 'Play Store',
+        'basedOnReviews' => 'Basato su oltre 10.000 recensioni',
+        // Admin dashboard
         'adminPanel' => 'Pannello amministratore',
         'userRequest' => 'Richiesta utente:',
         'approve' => 'Approva',
@@ -59,6 +98,7 @@ return
         'signUp' => 'Registrati',
         'login' => 'Accedi',
         'careers' => 'Lavora con noi',
+        // register
         'registerIntro' => 'Crea il tuo account per iniziare a comprare e vendere in tutta Italia.',
         'firstName' => 'Nome',
         'lastName' => 'Cognome',
@@ -76,10 +116,12 @@ return
         'sustainableDesc' => 'Comprando e vendendo usato guadagni tu e aiuti anche il pianeta.',
         'convenient' => 'Comodo',
         'createAction' => 'Crea',
+        // email for work request
         'workRequestMessage' => 'Un utente ha richiesto di lavorare con noi',
         'userDetailsLabel' => 'Ecco i dati dell’utente:',
         'makeRevisor' => 'Se vuoi rendere :name revisore, clicca qui:',
         'grantRevisorRole' => 'Assegna ruolo di revisore',
+        // revisor dashboard
         'revisorDashboard' => 'Dashboard revisore',
         'noListingsToReview' => 'Nessun annuncio da revisionare',
         'undoLastReview' => 'Annulla ultima revisione',

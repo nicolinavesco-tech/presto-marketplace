@@ -1,13 +1,12 @@
 <?php
 return
     [
-
+        // dropdown mobile
+        'menu' => '更多',
+        'language' => '语言',
+        // Navbar
         'hello' => '你好',
         'allArticles' => '所有文章',
-        'engine' => '车辆',
-        'market' => '市场',
-        'property' => '房地产',
-        'work' => '工作',
         'magazine' => '杂志',
         'sellingTips' => '销售技巧',
         'shopsBusiness' => '商店和企业',
@@ -21,6 +20,7 @@ return
         'logout' => '退出',
         'revisor' => '审核员',
         'admin' => '管理员',
+        // Header
         'whatSearch' => '你在寻找什么？',
         'search' => '搜索',
         'chooseCategory' => '选择一个分类',
@@ -28,8 +28,46 @@ return
         'where' => '在哪里？',
         'location' => '位置',
         'allItaly' => '全意大利',
+        'overListings' => '超过100万条发布',
+        'securePayments' => '安全支付',
+        'dedicatedSupport' => '专属客服支持',
+        'verifiedCommunity' => '认证社区',
+        // First section
+        'engine' => '车辆',
+        'market' => '市场',
+        'property' => '房地产',
+        'work' => '工作',
+        // Second section
+        'howItWorks' => 'Presto 如何运作？',
+        'sellOfferFind' => '只需几个步骤即可出售、提供服务或找到优惠。',
+        'publish' => '发布',
+        'publishAds' => '发布销售或服务广告',
+        'find' => '查找',
+        'findNearby' => '查找您附近所需的内容',
+        'earn' => '赚钱',
+        'closeDeal' => '安全完成完美交易并赚取收益。',
+        // Third section
         'details' => '查看详情',
-        'highlighted_for_you' => '为你推荐',  
+        'highlighted_for_you' => '为你推荐',
+        // Fourth section
+        'haveBusiness' => '您有公司并对 Presto 感兴趣吗？',
+        'sellEasy' => '使用 Presto 的支付和配送服务，轻松安全地销售。',
+        'millionsDiscover' => '每天都有数百万人可以看到您的广告',
+        'learnMore' => '了解更多',
+        'activateNow' => '立即启用 ',
+        // Fifth section
+        'eyeForDetails' => '您注重细节吗？将其转化为收入。',
+        'becomeReviewer' => '成为审核员，立即开始。',
+        'workWithUs' => '与我们合作',
+        // Sixth section
+        'makeSpace' => '为您的衣柜腾出空间。',
+        'betterWithPresto' => '您的交易选择 Presto 更好。',
+        // Seventh section
+        'downloadApp' => '下载 Presto 应用程序。',
+        'appStore' => 'App Store',
+        'playStore' => 'Play Store',
+        'basedOnReviews' => '基于超过 10,000 条评价',
+        // Admin dashboard
         'adminPanel' => '管理员面板',
         'userRequest' => '用户请求：',
         'approve' => '批准',
@@ -60,6 +98,7 @@ return
         'signUp' => '注册',
         'login' => '登录',
         'careers' => '加入我们',
+        // Register
         'registerIntro' => '创建账户，开始在全意大利买卖商品。',
         'firstName' => '名字',
         'lastName' => '姓氏',
@@ -77,10 +116,12 @@ return
         'sustainableDesc' => '通过买卖二手商品赚钱，同时保护环境。',
         'convenient' => '便捷',
         'createAction' => '创建',
+        // emial for work request
         'workRequestMessage' => '有用户申请加入我们',
         'userDetailsLabel' => '以下是用户信息：',
         'makeRevisor' => '如果您想将 :name 设为审核员，请点击这里：',
         'grantRevisorRole' => '授予审核员权限',
+        // revisor dashbord
         'revisorDashboard' => '审核员面板',
         'noListingsToReview' => '没有需要审核的广告',
         'undoLastReview' => '撤销上次审核',
@@ -95,10 +136,10 @@ return
         'accessibility' => '无障碍访问',
         'manageCookies' => '管理 Cookie',
 
-        'tuttoPrestoSell' => 'TuttoPresto 出售',
-        'tuttoPrestoBuy' => 'TuttoPresto 购买',
-        'tuttoPrestoService' => 'TuttoPresto 服务',
-        'tuttoPrestoServiceProfessionals' => 'TuttoPresto 专业服务',
+        'tuttoPrestoSell' => 'Presto 出售',
+        'tuttoPrestoBuy' => 'Presto 购买',
+        'tuttoPrestoService' => 'Presto 服务',
+        'tuttoPrestoServiceProfessionals' => 'Presto 专业服务',
 
         'promoteAd' => '推广广告',
         'sellingTips' => '销售技巧',

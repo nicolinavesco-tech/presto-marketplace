@@ -1,12 +1,12 @@
 <?php
 return
     [
+        // dropdown mobile
+        'menu' => 'Ещё',
+        'language' => 'Язык',
+        // Navbar
         'hello' => 'Привет',
         'allArticles' => 'Все статьи',
-        'engine' => 'Авто',
-        'market' => 'Товары',
-        'property'   => 'Жильё',
-        'work'   => 'Работа',
         'magazine' => 'Журнал',
         'sellingTips' => 'Советы по продаже',
         'shopsBusiness' => 'Магазины и компании',
@@ -20,6 +20,7 @@ return
         'logout' => 'Выйти',
         'revisor' => 'Модератор',
         'admin'   => 'Админ',
+        // Header
         'whatSearch' => 'Что вы ищете?',
         'search' => 'Найти',
         'chooseCategory' => 'Выберите категорию',
@@ -27,8 +28,46 @@ return
         'where' => 'Где?',
         'location' => 'Местоположение',
         'allItaly' => 'Вся Италия',
+        'overListings' => 'Более 1 млн объявлений',
+        'securePayments' => 'Безопасные платежи',
+        'dedicatedSupport' => 'Персональная поддержка',
+        'verifiedCommunity' => 'Проверенное сообщество',
+        // First section
+        'engine' => 'Авто',
+        'market' => 'Товары',
+        'property'   => 'Жильё',
+        'work'   => 'Работа',
+        // Second section
+        'howItWorks' => 'Как работает Presto?',
+        'sellOfferFind' => 'Продавайте, предлагайте услуги или находите выгодные предложения за несколько шагов.',
+        'publish' => 'Опубликовать',
+        'publishAds' => 'Размещайте объявления о продаже или услугах',
+        'find' => 'Найти',
+        'findNearby' => 'Найдите то, что вам нужно, рядом с вами',
+        'earn' => 'Заработай',
+        'closeDeal' => 'Закрой сделку и зарабатывай безопасно',
+        // Third section
         'details' => 'Подробнее',
         'highlighted_for_you' => 'Рекомендуем для вас',
+        // Fourth section
+        'haveBusiness' => 'У вас есть бизнес и вас интересует Presto?',
+        'sellEasy' => 'Продавайте просто и безопасно с сервисами оплаты и доставки Presto.',
+        'millionsDiscover' => 'Каждый день миллионы людей могут увидеть ваши объявления.',
+        'learnMore' => 'Узнать больше',
+        'activateNow' => 'Активируйте',
+        // Fifth section
+        'eyeForDetails' => 'У вас есть внимание к деталям? Превратите это в доход.',
+        'becomeReviewer' => 'Станьте рецензентом и начните уже сегодня.',
+        'workWithUs' => 'Работайте с нами',
+        // Sixth section
+        'makeSpace' => 'Освободите место в своем шкафу.',
+        'betterWithPresto' => 'Для ваших сделок лучше Presto.',
+        // Seventh section
+        'downloadApp' => 'Скачайте приложение Presto',
+        'appStore' => 'App Store',
+        'playStore' => 'Play Store',
+        'basedOnReviews' => 'Основано на более чем 10 000 отзывах',
+        // Admin dashboard
         'adminPanel' => 'Панель администратора',
         'userRequest' => 'Запрос пользователя:',
         'approve' => 'Одобрить',
@@ -59,6 +98,7 @@ return
         'signUp' => 'Зарегистрироваться',
         'login' => 'Войти',
         'careers' => 'Карьера',
+        // Register
         'registerIntro' => 'Создайте аккаунт, чтобы начать покупать и продавать по всей Италии.',
         'firstName' => 'Имя',
         'lastName' => 'Фамилия',
@@ -76,10 +116,12 @@ return
         'sustainableDesc' => 'Покупая и продавая б/у товары, вы зарабатываете и помогаете планете.',
         'convenient' => 'Удобно',
         'createAction' => 'Создать',
+        // emial for work request
         'workRequestMessage' => 'Пользователь подал заявку на работу у нас',
         'userDetailsLabel' => 'Вот данные пользователя:',
         'makeRevisor' => 'Если вы хотите назначить :name модератором, нажмите здесь:',
         'grantRevisorRole' => 'Назначить модератором',
+        // revisor dashbord
         'revisorDashboard' => 'Панель модератора',
         'noListingsToReview' => 'Нет объявлений для проверки',
         'undoLastReview' => 'Отменить последнюю проверку',
@@ -94,10 +136,10 @@ return
         'accessibility' => 'Доступность',
         'manageCookies' => 'Управление файлами cookie',
 
-        'tuttoPrestoSell' => 'TuttoPresto Продажа',
-        'tuttoPrestoBuy' => 'TuttoPresto Покупка',
-        'tuttoPrestoService' => 'Сервис TuttoPresto',
-        'tuttoPrestoServiceProfessionals' => 'Сервис TuttoPresto для профессионалов',
+        'tuttoPrestoSell' => 'Presto Продажа',
+        'tuttoPrestoBuy' => 'Presto Покупка',
+        'tuttoPrestoService' => 'Сервис Presto',
+        'tuttoPrestoServiceProfessionals' => 'Сервис Presto для профессионалов',
 
         'promoteAd' => 'Продвигать объявление',
         'sellingTips' => 'Советы по продаже',

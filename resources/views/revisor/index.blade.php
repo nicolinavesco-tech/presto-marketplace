@@ -2,7 +2,7 @@
 
     @if(session()->has("message"))
     <div class="row justify-content-center">
-        <div class="col-5 alert alert-success text-center shadow rounded">
+        <div class="alert alert-success text-center shadow rounded">
             {{session("message")}}
         </div>
     </div>

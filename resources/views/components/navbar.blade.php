@@ -47,7 +47,7 @@
             </button> -->
 
             <div class="collapse navbar-collapse w-100 d-flex justify-content-end me-4 navbar-custom navbarDrop" id="navbarNavDropdown">
-                <ul class="navbar-nav  d-lg-flex flex-row gap-2 gap-lg-4">
+                <ul class="navbar-nav navbar-mobile d-lg-flex flex-row gap-2 gap-lg-4">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{route('home')}}">{{ __('ui.home') }}</a>
                     </li>
@@ -61,12 +61,12 @@
                             <i class="fa-solid fa-plus plus-btn" style="color: #D32F2F;"></i> {{ __('ui.postAd') }}
                         </a>
                     </li>
-                    <li>
-                        <a class="nav-link all-articles" aria-current="page" href="{{route('article_index')}}">{{ __('ui.allArticles') }}</a>
+                    <li class="d-none d-lg-inline-block">
+                        <a class="nav-link" aria-current="page" href="{{route('article_index')}}">{{ __('ui.allArticles') }}</a>
                     </li>
-                    <form action="{{route('logout')}}" method="POST" class="text-center">
+                    <form action="{{route('logout')}}" method="POST" class="d-none d-lg-inline-block">
                         @csrf
-                        <button class="btn" type="submit"><i class="fa-solid fa-arrow-right-from-bracket"></i> {{ __('ui.logout') }}</button>
+                        <button class="btn " type="submit"><i class="fa-solid fa-arrow-right-from-bracket"></i> {{ __('ui.logout') }}</button>
                     </form>
                     @else
                     <li class="nav-item">
@@ -75,11 +75,93 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('register')}}">{{ __('ui.signUp') }}</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item d-none d-lg-inline-block">
                         <a class="nav-link" href="#">{{ __('ui.careers') }}</a>
                     </li>
                     @endauth
                 </ul>
+                <!-- MOBILE ONLY DROPDOWN -->
+                <ul class="navbar-nav d-lg-none">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold" href="#" role="button" data-bs-toggle="dropdown">
+                            {{ __('ui.menu') }}
+                        </a>
+
+                        <ul class="dropdown-menu menu-mobile start-0 translate-middle-x mt-3">
+                            <!-- Lingue -->
+                            <li class="dropdown-header">{{ __('ui.language') }}</li>
+                            <div class="d-flex gap-1">
+                                <li><x-_locale lang="it" /></li>
+                                <li><x-_locale lang="gb" /></li>
+                                <li><x-_locale lang="ru" /></li>
+                                <li><x-_locale lang="cn" /></li>
+                                <li><x-_locale lang="th" /></li>
+                            </div>
+
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+
+                            <!-- Link topbar -->
+                            <li><a class="dropdown-item" href="#">{{ __('ui.magazine') }}</a></li>
+                            <li><a class="dropdown-item" href="#">{{ __('ui.sellingTips') }}</a></li>
+                            <li><a class="dropdown-item" href="#">{{ __('ui.shopsBusiness') }}</a></li>
+                            <li><a class="dropdown-item" href="#">{{ __('ui.forBusiness') }}</a></li>
+                            <li><a class="dropdown-item" href="#">{{ __('ui.support') }}</a></li>
+                            <li><a class="dropdown-item" href="#">{{ __('ui.savedSearches') }}</a></li>
+                            <li><a class="dropdown-item" href="#">{{ __('ui.favourites') }}</a></li>
+
+                            @auth
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+
+                            @if(Auth::user()->is_revisor)
+                            <li>
+                                <a href="{{route('revisor.index')}}" class="dropdown-item">
+                                    {{ __('ui.revisor') }}
+                                    <span class="badge bg-danger">
+                                        {{\App\Models\Article::toBeRevisedCount()}}
+                                    </span>
+                                </a>
+                            </li>
+                            @endif
+
+                            @if(Auth::user()->is_admin)
+                            <li>
+                                <a href="{{route('admin.index')}}" class="dropdown-item">
+                                    {{ __('ui.admin') }}
+                                </a>
+                            </li>
+                            @endif
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="ms-3">
+                                <a class="nav-link all-articles" aria-current="page" href="{{route('article_index')}}">{{ __('ui.allArticles') }}</a>
+                            </li>
+                            <form action="{{route('logout')}}" method="POST" class="text-center">
+                                @csrf
+                                <button class="btn" type="submit"><i class="fa-solid fa-arrow-right-from-bracket"></i> {{ __('ui.logout') }}</button>
+                            </form>
+                            @else
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="ms-3 nav-link all-articles">
+                                <a class="nav-link" aria-current="page" href="{{route('article_index')}}">{{ __('ui.allArticles') }}</a>
+                            </li>
+                            <li class="ms-3 nav-item">
+                                <a class="nav-link" href="#">{{ __('ui.careers') }}</a>
+                            </li>
+                            @endauth
+
+
+                        </ul>
+                    </li>
+
+                </ul>
+
             </div>
         </div>
 

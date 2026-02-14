@@ -1,12 +1,12 @@
 <?php
 return
     [
+        // dropdown mobile
+        'menu' => 'เพิ่มเติม',
+        'language' => 'ภาษา',
+        // Navbar
         'hello' => 'สวัสดี',
         'allArticles' => 'บทความทั้งหมด',
-        'engine' => 'ยานพาหนะ',
-        'market' => 'ตลาด',
-        'property' => 'บ้าน',
-        'work' => 'งาน',
         'magazine' => 'นิตยสาร',
         'sellingTips' => 'เคล็ดลับการขาย',
         'shopsBusiness' => 'ร้านค้าและธุรกิจ',
@@ -20,6 +20,7 @@ return
         'logout' => 'ออกจากระบบ',
         'revisor' => 'ผู้ตรวจสอบ',
         'admin' => 'ผู้ดูแลระบบ',
+        // Header
         'whatSearch' => 'คุณกำลังมองหาอะไร?',
         'search' => 'ค้นหา',
         'chooseCategory' => 'เลือกหมวดหมู่',
@@ -27,8 +28,46 @@ return
         'where' => 'ที่ไหน?',
         'location' => 'สถานที่',
         'allItaly' => 'ทั่วอิตาลี',
+        'overListings' => 'ประกาศมากกว่า 1 ล้านรายการ',
+        'securePayments' => 'การชำระเงินที่ปลอดภัย',
+        'dedicatedSupport' => 'บริการช่วยเหลือเฉพาะคุณ',
+        'verifiedCommunity' => 'ชุมชนที่ผ่านการตรวจสอบ',
+        // First section
+        'engine' => 'ยานพาหนะ',
+        'market' => 'ตลาด',
+        'property' => 'บ้าน',
+        'work' => 'งาน',
+        // Second section
+        'howItWorks' => 'Presto ทำงานอย่างไร?',
+        'sellOfferFind' => 'ขาย เสนอบริการ หรือค้นหาข้อเสนอได้ในไม่กี่ขั้นตอน',
+        'publish' => 'โพสต์',
+        'publishAds' => 'โพสต์ประกาศขายหรือบริการ',
+        'find' => 'ค้นหา',
+        'findNearby' => 'ค้นหาสิ่งที่คุณต้องการใกล้ตัวคุณ',
+        'earn' => 'สร้างรายได้',
+        'closeDeal' => 'ปิดดีลที่สมบูรณ์แบบและรับรายได้อย่างปลอดภัย',
+        // Third section
         'details' => 'ดูรายละเอียด',
-        'highlighted_for_you' => 'แนะนำสำหรับคุณ', 
+        'highlighted_for_you' => 'แนะนำสำหรับคุณ',
+        // Fourth section
+        'haveBusiness' => 'คุณมีธุรกิจและสนใจ Presto ใช่ไหม?',
+        'sellEasy' => 'ขายง่ายและปลอดภัยด้วยบริการชำระเงินและจัดส่งของ Presto',
+        'millionsDiscover' => 'ทุกวันมีผู้คนนับล้านสามารถเห็นประกาศของคุณ',
+        'learnMore' => 'เรียนรู้เพิ่มเติม',
+        'activateNow' => 'เปิดเลย',
+        // Fifth section
+        'eyeForDetails' => 'คุณมีสายตาที่ละเอียดรอบคอบหรือไม่? เปลี่ยนมันให้เป็นรายได้',
+        'becomeReviewer' => 'เป็นผู้ตรวจสอบและเริ่มได้เลยวันนี้',
+        'workWithUs' => 'ร่วมงานกับเรา',
+        // Sixth section
+        'makeSpace' => 'เพิ่มพื้นที่ในตู้เสื้อผ้าของคุณ',
+        'betterWithPresto' => 'สำหรับการซื้อขายของคุณ Presto คือทางเลือกที่ดีกว่า',
+        // Seventh section
+        'downloadApp' => 'ดาวน์โหลดแอป Presto',
+        'appStore' => 'App Store',
+        'playStore' => 'Play Store',
+        'basedOnReviews' => 'จากรีวิวมากกว่า 10,000 รายการ',
+        // Admin dashboard
         'adminPanel' => 'แผงควบคุมผู้ดูแลระบบ',
         'userRequest' => 'คำขอจากผู้ใช้:',
         'approve' => 'อนุมัติ',
@@ -59,6 +98,7 @@ return
         'signUp' => 'สมัครสมาชิก',
         'login' => 'เข้าสู่ระบบ',
         'careers' => 'ร่วมงานกับเรา',
+        // Register
         'registerIntro' => 'สร้างบัญชีของคุณเพื่อเริ่มซื้อและขายทั่วอิตาลี',
         'firstName' => 'ชื่อ',
         'lastName' => 'นามสกุล',
@@ -76,10 +116,12 @@ return
         'sustainableDesc' => 'การซื้อขายสินค้ามือสองช่วยให้คุณมีรายได้และช่วยโลกไปพร้อมกัน',
         'convenient' => 'สะดวกสบาย',
         'createAction' => 'สร้าง',
+        // emial for work request
         'workRequestMessage' => 'มีผู้ใช้สมัครร่วมงานกับเรา',
         'userDetailsLabel' => 'นี่คือข้อมูลของผู้ใช้:',
         'makeRevisor' => 'หากคุณต้องการแต่งตั้ง :name เป็นผู้ตรวจสอบ คลิกที่นี่:',
         'grantRevisorRole' => 'มอบสิทธิ์ผู้ตรวจสอบ',
+        // revisor dashbord
         'revisorDashboard' => 'แผงควบคุมผู้ตรวจสอบ',
         'noListingsToReview' => 'ไม่มีประกาศที่ต้องตรวจสอบ',
         'undoLastReview' => 'ยกเลิกการตรวจสอบล่าสุด',
@@ -94,10 +136,10 @@ return
         'accessibility' => 'การเข้าถึง',
         'manageCookies' => 'จัดการคุกกี้',
 
-        'tuttoPrestoSell' => 'TuttoPresto ขาย',
-        'tuttoPrestoBuy' => 'TuttoPresto ซื้อ',
-        'tuttoPrestoService' => 'บริการ TuttoPresto',
-        'tuttoPrestoServiceProfessionals' => 'บริการ TuttoPresto สำหรับมืออาชีพ',
+        'tuttoPrestoSell' => 'Presto ขาย',
+        'tuttoPrestoBuy' => 'Presto ซื้อ',
+        'tuttoPrestoService' => 'บริการ Presto',
+        'tuttoPrestoServiceProfessionals' => 'บริการ Presto สำหรับมืออาชีพ',
 
         'promoteAd' => 'โปรโมทประกาศ',
         'sellingTips' => 'เคล็ดลับการขาย',

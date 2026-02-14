@@ -1,12 +1,12 @@
 <?php
 return
     [
+        // dropdown mobile
+        'menu' => 'More',
+        'language' => 'Language',
+        // Navbar
         'hello' => 'Hello',
         'allArticles' => 'All Articles',
-        'engine' => 'Motors',
-        'market' => 'Market',
-        'property' => 'Property',
-        'work' => 'Jobs',
         'magazine' => 'Magazine',
         'sellingTips' => 'Selling Tips',
         'shopsBusiness' => 'Shops & Businesses',
@@ -20,6 +20,7 @@ return
         'logout' => 'Log Out',
         'revisor' => 'Moderator',
         'admin'   => 'Admin',
+        // Header
         'whatSearch' => 'What are you looking for?',
         'search' => 'Search',
         'chooseCategory' => 'Choose a category',
@@ -27,8 +28,46 @@ return
         'where' => 'Where?',
         'location' => 'Location',
         'allItaly' => 'All Italy',
+        'overListings' => 'Over 1M listings',
+        'securePayments' => 'Secure payments',
+        'dedicatedSupport' => 'Dedicated support',
+        'verifiedCommunity' => 'Verified community',
+        // First section
+        'engine' => 'Motors',
+        'market' => 'Market',
+        'property' => 'Property',
+        'work' => 'Jobs',
+        // Second section
+        'howItWorks' => 'How does Presto work?',
+        'sellOfferFind' => 'Sell, offer services or find great deals in just a few steps.',
+        'publish' => 'Publish',
+        'publishAds' => 'Post sales or service listings',
+        'find' => 'Find',
+        'findNearby' => 'Search for what you need near you',
+        'earn' => 'Earn',
+        'closeDeal' => 'Close the perfect deal and earn safely.',
+        // Third section
         'details' => 'Details',
-        'highlighted_for_you' => 'Featured for you', 
+        'highlighted_for_you' => 'Featured for you',
+        // Fourth section
+        'haveBusiness' => 'Do you have a business and are interested in Presto?',
+        'sellEasy' => 'Sell easily and safely with Presto payment and shipping services.',
+        'millionsDiscover' => 'Millions of people can discover your listings every day.',
+        'learnMore' => 'Learn more',
+        'activateNow' => 'Activate now',
+        // Fifth section
+        'eyeForDetails' => 'Do you have an eye for detail? Turn it into earnings.',
+        'becomeReviewer' => 'Become a Reviewer and start today.',
+        'workWithUs' => 'Work with us',
+        // Sixth section
+        'makeSpace' => 'Make space in your closet.',
+        'betterWithPresto' => 'Presto is better for your deals.',
+        // Seventh section
+        'downloadApp' => 'Download the Presto app',
+        'appStore' => 'App Store',
+        'playStore' => 'Play Store',
+        'basedOnReviews' => 'Based on over 10,000 reviews',
+        // admin dashboard
         'adminPanel' => 'Admin Panel',
         'userRequest' => 'User Request:',
         'approve' => 'Approve',
@@ -59,6 +98,7 @@ return
         'signUp' => 'Sign Up',
         'login' => 'Log In',
         'careers' => 'Careers',
+        // Register
         'registerIntro' => 'Create your account to start buying and selling across Italy.',
         'firstName' => 'First Name',
         'lastName' => 'Last Name',
@@ -76,10 +116,12 @@ return
         'sustainableDesc' => 'By buying and selling second-hand, you earn money and help the planet.',
         'convenient' => 'Convenient',
         'createAction' => 'Create',
+        // emial for work request
         'workRequestMessage' => 'A user has applied to work with us',
         'userDetailsLabel' => 'Here are the user’s details:',
         'makeRevisor' => 'If you want to make :name a moderator, click here:',
         'grantRevisorRole' => 'Grant Moderator Role',
+        // revisor dashbord
         'revisorDashboard' => 'Moderator Dashboard',
         'noListingsToReview' => 'No listings to review',
         'undoLastReview' => 'Undo Last Review',
@@ -94,10 +136,10 @@ return
         'accessibility' => 'Accessibility',
         'manageCookies' => 'Manage Cookies',
 
-        'tuttoPrestoSell' => 'TuttoPresto Sell',
-        'tuttoPrestoBuy' => 'TuttoPresto Buy',
-        'tuttoPrestoService' => 'TuttoPresto Service',
-        'tuttoPrestoServiceProfessionals' => 'TuttoPresto Service for Professionals',
+        'tuttoPrestoSell' => 'Presto Sell',
+        'tuttoPrestoBuy' => 'Presto Buy',
+        'tuttoPrestoService' => 'Presto Service',
+        'tuttoPrestoServiceProfessionals' => 'Presto Service for Professionals',
 
         'promoteAd' => 'Promote Ad',
         'sellingTips' => 'Selling Tips',
