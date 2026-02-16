@@ -5,15 +5,15 @@ namespace App\Jobs;
 use App\Models\Image;
 use Spatie\Image\Enums\Fit;
 use Spatie\Image\Enums\AlignPosition;
-use Spatie\Image as SpatieImage;
+use Spatie\Image\Image as SpatieImage;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Google\Colud\Vision\V1\Feature;
+use Google\Cloud\Vision\V1\Feature;
 use Google\Cloud\Vision\V1\Feature\Type;
 use Google\Cloud\Vision\V1\AnnotateImageRequest;
 use Google\Cloud\Vision\V1\Image as VisionImage;
 use Google\Cloud\Vision\V1\BatchAnnotateImagesRequest;
-use Google\Cloud\Vision\V1\ImageAnnotatorClient;
+use Google\Cloud\Vision\V1\Client\ImageAnnotatorClient;
 
 
 
@@ -57,7 +57,7 @@ class RemoveFaces implements ShouldQueue
         $request->setFeatures([$googleFeature]);
 
         $batchRequest=new BatchAnnotateImagesRequest();
-        $batchRequest->setRequest([]);
+        $batchRequest->setRequests([$request]);
 
         $responseBatch = $googleVisionClient->batchAnnotateImages($batchRequest);
         $response = $responseBatch->getResponses()[0];
