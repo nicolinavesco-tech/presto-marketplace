@@ -20,6 +20,7 @@
 /storage/pail
 /storage/*.index
 /vendor
+google-credential.json
 Homestead.json
 Homestead.yaml
 Thumbs.db

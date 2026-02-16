@@ -54,16 +54,16 @@
                 </div>
             </form>
         </div>
-        <div class="d-flex gap-4 mt-2 justify-content-center fidelity-message">
-            <span><i class="fa-solid fa-check" style="color: #2E7D32;"></i> {{ __('ui.overListings') }}</span>
-            <span><i class="fa-solid fa-check" style="color: #2E7D32;"></i> {{ __('ui.securePayments') }}</span>
-            <span><i class="fa-solid fa-check" style="color: #2E7D32;"></i>  {{ __('ui.dedicatedSupport') }}</span>
-            <span><i class="fa-solid fa-check" style="color: #2E7D32;"></i>  {{ __('ui.verifiedCommunity') }}</span>
+        <div class="d-none d-md-flex gap-4 mt-2 justify-content-center fidelity-message">
+            <span class="font-message"><i class="fa-solid fa-check" style="color: #2E7D32;"></i> {{ __('ui.overListings') }}</span>
+            <span class="font-message"><i class="fa-solid fa-check" style="color: #2E7D32;"></i> {{ __('ui.securePayments') }}</span>
+            <span class="font-message"><i class="fa-solid fa-check" style="color: #2E7D32;"></i>  {{ __('ui.dedicatedSupport') }}</span>
+            <span class="font-message"><i class="fa-solid fa-check" style="color: #2E7D32;"></i>  {{ __('ui.verifiedCommunity') }}</span>
         </div>
     </header>
     <!-- First section -->
     <section class="container">
-        <div class="row firstSection align-items-center mx-auto w-75">
+        <div class="row firstSection align-items-center mx-auto">
             <div class="col-12 d-flex justify-content-around mt-5 gap-3">
                 <div class="iconTransport w-25 d-flex justify-content-center align-items-center">
                     <div class="iconDiv d-flex align-items-center justify-content-around gap-2 gap-lg-5 transport">
@@ -125,7 +125,7 @@
     <!-- Third section -->
     <section class="container mt-5">
         <div class="row">
-            <div class="col-xs-11 col-md-10 col-centered ">
+            <div class="col-md-10 col-centered ">
                 <h3 class="fw-semibold">{{ __('ui.highlighted_for_you') }}</h3>
 
                 <div id="carouselExample" class="carousel slide mt-4" data-ride="carousel" data-bs-interval="2500">

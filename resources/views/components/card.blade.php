@@ -1,4 +1,4 @@
-<div class="card mx-auto card-w shadow mb-3 d-flex flex-column align-items-center card-welcome">
+<div class="card card-w shadow mb-3 d-flex flex-column align-items-center card-welcome">
 
     
     <img src="{{ $article->images->isNotEmpty() ? $article->images->first()->getUrl(1000, 1000) : 'https://picsum.photos/200' }}" class="card-img-top" alt="Immagine dell'articolo {{ $article->title }}">

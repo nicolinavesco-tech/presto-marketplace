@@ -185,8 +185,12 @@
     .fidelity-message {
         width: 390px;
         align-items: center;
+        
 
     }
+    /* .font-message{
+        font-size:smaller;
+    } */
 
 }
 
@@ -194,6 +198,7 @@
 
 .firstSection {
     height: 15vh;
+    width: 75% 
 }
 
 .imgFirstSection {
@@ -316,14 +321,14 @@
     .titleBriefcase {
         margin-top: 20px;
     }
-
+    
 }
 
 /* Second Section */
-.secondSection {
+/* .secondSection {
     height: 50vh;
 
-}
+} */
 
 .img-second-section {
     width: 270px;
@@ -337,7 +342,7 @@
 /* Media query */
 @media screen and (max-width:768px) {
     .secondSection {
-        height: 120vh;
+        /* height: 120vh; */
         margin-top: 20px !important;
     }
 
@@ -349,26 +354,41 @@
 
 /* Third section */
 
+#carouselExample {
+  overflow: hidden;   /* usato per risolvere problemi di overflow con il carosello */
+}
+
 .col-centered {
     margin: 0 auto;
 }
 
 #carouselExample .carousel-control-next {
     right: -80px;
+
 }
 
 #carouselExample .carousel-control-prev {
     left: -50px;
+
 }
 
 /* Media Query */
 @media screen and (max-width:768px) {
     #carouselExample .carousel-control-next {
         right: -25px;
+
     }
+    #carouselExample .carousel-control-next-icon {
+        display:none;
+    }
+
 
     #carouselExample .carousel-control-prev {
         left: -5px;
+
+    }
+    #carouselExample .carousel-control-prev-icon {
+        display:none;
     }
 }
 
@@ -727,21 +747,22 @@ a.form-button {
 .titleSpan {
     color: #D32F2F;
 }
-.content-section6{
-  justify-content: center;    
+
+.content-section6 {
+    justify-content: center;
 }
 
-.img-section6{
-  flex: 0 0 50%;                
-  display: flex;
-  justify-content: end;     
-  align-items: center;
-  
+.img-section6 {
+    flex: 0 0 50%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
 }
 
-.image-section6{
-  width: 82% ;                   
-  max-width: 320px;
+.image-section6 {
+    width: 82%;
+    max-width: 320px;
 }
 
 /* Media query */
@@ -794,6 +815,13 @@ a.form-button {
     border-left: 1px solid white;
     padding-left: 20px;
 }
+
+@media (max-width: 768px) {
+    .img7section {
+        display: none;
+    }
+}
+
 
 /* Footer */
 .logo-footer {
