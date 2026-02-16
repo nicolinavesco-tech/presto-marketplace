@@ -6,6 +6,7 @@
                 <p>{{ __('ui.heroSubtitle') }}</p>
             </div>
         </div>
+
         <section class="mt-5 add-article-wrapper position-relative">
             <div class="row justify-content-center align-items-center height-custom add-form">
                 <div class="col-12 col-md-6">

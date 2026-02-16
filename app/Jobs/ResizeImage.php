@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Spatie\Image\Enums\CropPosition;
 use Spatie\Image\Image;
+use Spatie\Image\Enums\Unit;
 
 class ResizeImage implements ShouldQueue
 {
@@ -37,6 +38,20 @@ class ResizeImage implements ShouldQueue
 
         Image::load($srcPath)
             ->crop($w, $h, CropPosition::Center)
+            ->watermark(
+                public_path('media/logo_bw.png'),
+                // width: 800,
+                // height: 800,
+                // alpha: 70,
+                // paddingX: 50,
+                // paddingY: 30,
+                width:200,
+                height:200,
+                alpha: 40,
+                paddingX:5,
+                paddingY: 5,
+                paddingUnit: Unit::Percent
+                            )
             ->save($destPath);
 
    }
