@@ -24,7 +24,7 @@ class Image extends Model
 
     public function article() :BelongsTo
     {
-        return $this->belongTo(Article::class);
+        return $this->belongsTo(Article::class);
     }
 
     public static function getUrlByFilePath($filePath, $w = null, $h = null){

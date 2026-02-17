@@ -40,14 +40,19 @@ class ArticleUpdateForm extends Component
     public function update(){
 
         $this->validate();
-    
+        foreach($this->article->images as $image){
+            $image->article()->dissociate();
+            $image->save();
+        }
+        $this->article->is_accepted=null;
+        $this->article->save();
+        
         $this->article->update([
            'title' => $this->title,
             'description' => $this->description,
             'price' => $this->price,
             'category_id' => $this->category,
             'user_id' => Auth::id(),
-            "is_accepted"=> null,
         ]);
 
              if(count($this->images) > 0){
@@ -56,7 +61,7 @@ class ArticleUpdateForm extends Component
                 $newImage = $this->article->images()->create(['path'=>$image->store($newFileName,'public')]);
                 // dispatch(new ResizeImage($newImage->path, 1000, 1000));
                 RemoveFaces::withChain([
-                    new ResizeImage($newImage->path,300,300),
+                    new ResizeImage($newImage->path,1000,1000),
                     new GoogleVisionSafeSearch($newImage->id),
                     new GoogleVisionLabelImage($newImage->id),
 

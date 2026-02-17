@@ -47,7 +47,7 @@ class CreateArticleForm extends Component
                 $newImage = $this->article->images()->create(['path'=>$image->store($newFileName,'public')]);
                 // dispatch(new ResizeImage($newImage->path, 1000, 1000));
                 RemoveFaces::withChain([
-                    new ResizeImage($newImage->path,300,300),
+                    new ResizeImage($newImage->path,1000,1000),
                     new GoogleVisionSafeSearch($newImage->id),
                     new GoogleVisionLabelImage($newImage->id),
 
