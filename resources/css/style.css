@@ -835,3 +835,34 @@ a.form-button {
     align-items: start;
     justify-content: center;
 }
+
+/* HERO SLIDER */
+.hero-work {
+    position: relative;
+    overflow: hidden;
+    /* height: 420px;
+    max-width: 1300px;
+    margin: 0 auto; */
+}
+
+.hero-slide {
+    height: 420px;
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 2;
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    width: 80%;
+}
