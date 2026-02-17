@@ -55,6 +55,9 @@
                         <button type="submit" class="btn-custom text-white mt-5"><i class="fa-regular fa-trash-can"></i>  {{ __('ui.deleteAction') }}</button>
                         
                     </form>
+                    <div class="col-auto box-buttons">
+                    <a href="{{route('article_edit', compact("article"))}}" class="mb-5 form-button">Modifica</a>
+                    </div>
                     @endif
                 </div>
             </div>
