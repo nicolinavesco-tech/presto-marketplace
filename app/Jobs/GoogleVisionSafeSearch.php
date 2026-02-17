@@ -72,6 +72,7 @@ class GoogleVisionSafeSearch implements ShouldQueue
             "text-success bi bi-check-circle-fill",
             "text-success bi bi-check-circle-fill",
             "text-warning bi bi-exclamation-circle-fill",
+            "text-warning bi bi-exclamation-circle-fill",
             "text-success bi bi-dash-circle-fill",
         ];
 

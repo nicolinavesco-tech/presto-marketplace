@@ -69,7 +69,9 @@ public function destroy(Article $article){
             return redirect(route('home')); 
     }
 
-
+    public function article_edit(Article $article){
+        return view ("articles.edit", compact("article"));
+    }
 
     
 }
