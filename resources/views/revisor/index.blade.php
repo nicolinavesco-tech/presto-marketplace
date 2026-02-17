@@ -1,7 +1,7 @@
 <x-layout>
 
     @if(session()->has("message"))
-    <div class="row justify-content-center">
+    <div class="row justify-content-center text-center">
         <div class="alert alert-success text-center shadow rounded">
             {{session("message")}}
         </div>
@@ -119,7 +119,7 @@
             <form action="{{route("unDo", ["value"=> null])}}" method="POST">
                 @csrf
                 @method("PATCH")
-                <button type="submit" class="btn btn-cancel-revisor text-dark py-2 px-5 fw-bold mt-5"> {{ __('ui.undoLastReview') }}
+                <button type="submit" class="btn btn-cancel-revisor text-white py-2 px-5 fw-bold mt-5"> {{ __('ui.undoLastReview') }}
                 </button>
             </form>
             <div class="col-auto box-buttons">
