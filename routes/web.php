@@ -40,4 +40,7 @@ Route::get("/admin/index", [AdminController::class, "index"])->name("admin.index
 // Rotta per le lingue
 Route::post('/lingua/{lang}', [PublicController::class, 'setLanguage'])->name('setLocale');
 
+// Lavora con noi
+Route::view('/lavora-con-noi', 'work-with-us.lavora-con-noi')->name('work.with.us');
+
 
