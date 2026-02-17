@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,5 +28,10 @@ class AppServiceProvider extends ServiceProvider
         if (Schema::hasTable('categories')){
             View::share('categories', Category::orderBy('name')->get());
         }
+        
+
+        Password::defaults(function () {
+            return Password::min(10)->mixedCase()->numbers()->symbols();
+            });
     }
 }

@@ -32,6 +32,13 @@
                                 {{ __('ui.noAccount') }} <strong style="color:#f9423a">{{ __('ui.signUp') }}</strong>
                             </a>
                         </div>
+                        <div class="col-auto d-flex justify-content-center">
+                            <a class="text-decoration-none text-dark" href="{{route('password.request')}}">
+                                {{ __('ui.password.forgetted') }} <strong style="color:#f9423a">{{ __('ui.recovery.password') }}</strong>
+                            </a>
+                        </div>
+                        
+
                         <div class="col-auto box-buttons">
                             <button type="submit" class="mb-3 form-button w-50">{{ __('ui.login') }}</button>
                         </div>
