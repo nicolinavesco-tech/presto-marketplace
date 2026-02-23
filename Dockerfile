@@ -14,39 +14,37 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
  && sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-# 3) Composer
+# 3) Install Node.js (così npm esiste)
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get update && apt-get install -y nodejs \
+    && node -v && npm -v \
+    && rm -rf /var/lib/apt/lists/*
+
+# 4) Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-# 4) Copia tutto il progetto (così artisan esiste quando composer esegue gli script)
+# 5) Copia tutto il progetto (così artisan esiste)
 COPY . .
 
-# 5) Dipendenze PHP
+# 6) Dipendenze PHP (no-scripts per evitare sqlite/package:discover in build)
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-scripts
 
-# Dipendenze e build frontend (crea public/build/manifest.json)
-RUN npm install
-RUN npm run build
-RUN ls -la public || true
-RUN ls -la public/build || true
-RUN test -f public/build/manifest.json
-
-# 6) Node + build Vite (public/build/manifest.json)
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
-    && npm ci \
+# 7) Build frontend (Vite) + check manifest
+# Se hai package-lock.json => usa npm ci (consigliato)
+RUN npm ci \
     && npm run build \
+    && ls -la public || true \
+    && ls -la public/build || true \
     && test -f public/build/manifest.json
 
-# 7) Permessi Laravel
+# 8) Permessi Laravel
 RUN mkdir -p storage/logs bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-# 8) Porta: Apache ascolta su 80, Render proxy fa il mapping
 EXPOSE 80
 
-# 9) (OPZIONALE ma utile su Render free) migrations all'avvio
-# Se non vuoi farle ad ogni boot, puoi togliere migrate e farlo una volta sola.
+# 9) Runtime: migrate (per Render free) + package discover + Apache
 CMD sh -c "php artisan migrate --force || true; php artisan package:discover --ansi || true; apache2-foreground"
