@@ -47,4 +47,4 @@ RUN mkdir -p storage/logs bootstrap/cache \
 EXPOSE 80
 
 # 9) Runtime: migrate (per Render free) + package discover + Apache
-CMD sh -c "php artisan migrate --force || true; php artisan package:discover --ansi || true; apache2-foreground"
+CMD sh -c "php artisan migrate:fresh --force; apache2-foreground"
