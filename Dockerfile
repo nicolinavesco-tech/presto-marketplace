@@ -31,6 +31,9 @@ COPY . .
 # 6) Dipendenze PHP (no-scripts per evitare sqlite/package:discover in build)
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-scripts
 
+# Crea link storage pubblico
+RUN php artisan storage:link || true
+
 # 7) Build frontend (Vite) + check manifest
 # Se hai package-lock.json => usa npm ci (consigliato)
 RUN npm ci \
