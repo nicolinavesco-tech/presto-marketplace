@@ -50,6 +50,15 @@ RUN npm ci \
     && ls -la public/build || true \
     && ls -la public/build/assets || true \
     && test -f public/build/manifest.json
+  
+# DEBUG: stampa contenuto build nei Build Logs (forza output anche se c'è cache)
+RUN echo "==== DEBUG VITE BUILD FILES ====" \
+ && pwd \
+ && ls -la public || true \
+ && ls -la public/build || true \
+ && ls -la public/build/assets || true \
+ && find public/build -maxdepth 2 -type f -print || true \
+ && echo "==== END DEBUG ===="
 
 # ✅ AGGIUNTA: verifica che ESISTANO davvero i file hashati (css/js) dentro assets
 RUN find public/build/assets -maxdepth 1 -type f \( -name "*.css" -o -name "*.js" \) | head -n 50 || true
