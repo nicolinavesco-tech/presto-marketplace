@@ -20,7 +20,7 @@ RUN mkdir -p /var/www/storage/logs \
  && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
 # Dipendenze PHP
-docker-php-ext-install pdo pdo_mysql pdo_pgsql zip exif
+RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql zip exif
 
 # Crea link storage pubblico
 RUN php artisan storage:link || true
