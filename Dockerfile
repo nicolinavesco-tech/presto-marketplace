@@ -30,4 +30,4 @@ RUN mkdir -p storage/logs bootstrap/cache \
 RUN npm ci && npm run build
 
 EXPOSE 10000
-CMD sh -c "php artisan serve --host=0.0.0.0 --port=${PORT:-10000}"
+CMD sh -c "php artisan migrate --force || true; php -S 0.0.0.0:${PORT:-10000} -t public"
