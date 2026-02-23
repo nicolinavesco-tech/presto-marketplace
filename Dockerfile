@@ -14,9 +14,6 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
  && sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-# >>> AGGIUNTA: AllowOverride All (così Apache legge public/.htaccess)
-RUN sed -ri 's/AllowOverride\s+None/AllowOverride All/g' /etc/apache2/apache2.conf
-
 # 3) Install Node.js (così npm esiste)
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get update && apt-get install -y nodejs \
@@ -37,26 +34,37 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-di
 # Crea link storage pubblico
 RUN php artisan storage:link || true
 
+# ✅ AGGIUNTA: pubblica gli asset dei pacchetti (bandiere) in public/vendor/...
+# (metto più tentativi così copriamo tag diversi senza far fallire la build)
+RUN php artisan vendor:publish --tag=blade-flags-assets --force || true \
+ && php artisan vendor:publish --tag=blade-flags --force || true \
+ && php artisan vendor:publish --tag=public --force || true \
+ && ls -la public/vendor || true \
+ && find public/vendor -maxdepth 3 -type f -name "country-*.svg" | head -n 20 || true
+
 # 7) Build frontend (Vite) + check manifest
 # Se hai package-lock.json => usa npm ci (consigliato)
 RUN npm ci \
     && npm run build \
-    && echo "---- DEBUG: contenuto public/build ----" \
+    && ls -la public || true \
     && ls -la public/build || true \
-    && echo "---- DEBUG: contenuto public/build/assets ----" \
     && ls -la public/build/assets || true \
     && test -f public/build/manifest.json
 
-# >>> AGGIUNTA: verifica FORTE che gli asset esistono davvero
-# (Se manifest punta a /build/assets/app-xxxx.css ma il file non c'è, qui lo scopri subito)
-RUN node -e "const fs=require('fs'); const m=JSON.parse(fs.readFileSync('public/build/manifest.json','utf8')); const files=new Set(); for (const k in m){ if(m[k].file) files.add('public/build/'+m[k].file); (m[k].css||[]).forEach(c=>files.add('public/build/'+c)); } let missing=[]; for(const f of files){ if(!fs.existsSync(f)) missing.push(f); } if(missing.length){ console.error('MISSING VITE FILES:\\n'+missing.join('\\n')); process.exit(1);} console.log('VITE ASSETS OK:', files.size);"
+# ✅ AGGIUNTA: verifica che ESISTANO davvero i file hashati (css/js) dentro assets
+RUN find public/build/assets -maxdepth 1 -type f \( -name "*.css" -o -name "*.js" \) | head -n 50 || true
 
 # 8) Permessi Laravel
 RUN mkdir -p storage/logs bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
+# ✅ AGGIUNTA: permessi anche per gli asset buildati (così Apache li serve sicuro)
+RUN chown -R www-data:www-data public/build public/vendor || true \
+    && chmod -R 755 public/build public/vendor || true
+
 EXPOSE 80
 
 # 9) Runtime: migrate (per Render free) + package discover + Apache
-CMD sh -c "echo 'Starting...'; php artisan migrate:fresh --force; apache2-foreground"
+# ✅ AGGIUNTA: ripubblica bandiere + storage link anche a runtime (utile se Render resetta /public)
+CMD sh -c "php artisan migrate:fresh --force; php artisan storage:link || true; php artisan vendor:publish --tag=blade-flags-assets --force || true; apache2-foreground"
