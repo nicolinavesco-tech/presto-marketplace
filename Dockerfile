@@ -25,6 +25,13 @@ COPY . .
 # 5) Dipendenze PHP
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
+# Dipendenze e build frontend (crea public/build/manifest.json)
+RUN npm install
+RUN npm run build
+RUN ls -la public || true
+RUN ls -la public/build || true
+RUN test -f public/build/manifest.json
+
 # 6) Node + build Vite (public/build/manifest.json)
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \
