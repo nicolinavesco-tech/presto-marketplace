@@ -14,11 +14,8 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
  && sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-# ✅ (AGGIUNTA) Impostazioni Apache utili per Laravel + asset
-# - AllowOverride All per usare .htaccess di Laravel
-# - Abilita headers/mime (a volte utile per svg/css/js)
-RUN a2enmod headers mime \
- && printf '\n<Directory "/var/www/html/public">\n  AllowOverride All\n  Require all granted\n</Directory>\n' >> /etc/apache2/apache2.conf
+# >>> AGGIUNTA: AllowOverride All (così Apache legge public/.htaccess)
+RUN sed -ri 's/AllowOverride\s+None/AllowOverride All/g' /etc/apache2/apache2.conf
 
 # 3) Install Node.js (così npm esiste)
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
@@ -34,11 +31,6 @@ WORKDIR /var/www/html
 # 5) Copia tutto il progetto (così artisan esiste)
 COPY . .
 
-# ✅ (AGGIUNTA) Se non esiste .env in prod, Laravel può rompersi o non generare URL asset corretti
-# Render spesso usa env vars, ma avere un .env aiuta alcune cose (fallback).
-# Se NON vuoi crearne uno, lascia pure così.
-RUN if [ ! -f .env ] && [ -f .env.example ]; then cp .env.example .env; fi
-
 # 6) Dipendenze PHP (no-scripts per evitare sqlite/package:discover in build)
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-scripts
 
@@ -49,13 +41,15 @@ RUN php artisan storage:link || true
 # Se hai package-lock.json => usa npm ci (consigliato)
 RUN npm ci \
     && npm run build \
-    && ls -la public || true \
+    && echo "---- DEBUG: contenuto public/build ----" \
     && ls -la public/build || true \
+    && echo "---- DEBUG: contenuto public/build/assets ----" \
+    && ls -la public/build/assets || true \
     && test -f public/build/manifest.json
 
-# ✅ (AGGIUNTA) Permessi anche su public/storage (se esiste) e cache
-RUN mkdir -p public/storage \
-    && chown -R www-data:www-data public/storage || true
+# >>> AGGIUNTA: verifica FORTE che gli asset esistono davvero
+# (Se manifest punta a /build/assets/app-xxxx.css ma il file non c'è, qui lo scopri subito)
+RUN node -e "const fs=require('fs'); const m=JSON.parse(fs.readFileSync('public/build/manifest.json','utf8')); const files=new Set(); for (const k in m){ if(m[k].file) files.add('public/build/'+m[k].file); (m[k].css||[]).forEach(c=>files.add('public/build/'+c)); } let missing=[]; for(const f of files){ if(!fs.existsSync(f)) missing.push(f); } if(missing.length){ console.error('MISSING VITE FILES:\\n'+missing.join('\\n')); process.exit(1);} console.log('VITE ASSETS OK:', files.size);"
 
 # 8) Permessi Laravel
 RUN mkdir -p storage/logs bootstrap/cache \
@@ -64,14 +58,5 @@ RUN mkdir -p storage/logs bootstrap/cache \
 
 EXPOSE 80
 
-# ✅ (AGGIUNTA IMPORTANTISSIMA)
-# NON usare migrate:fresh in produzione: ti cancella tutto ad ogni restart/deploy.
-# Usa migrate --force (applica solo nuove migration).
-# E poi cache config/routes/views (velocizza e stabilizza).
-CMD sh -c "\
-  php artisan key:generate --force || true; \
-  php artisan migrate --force || true; \
-  php artisan config:cache || true; \
-  php artisan route:cache || true; \
-  php artisan view:cache || true; \
-  apache2-foreground"
+# 9) Runtime: migrate (per Render free) + package discover + Apache
+CMD sh -c "echo 'Starting...'; php artisan migrate:fresh --force; apache2-foreground"
