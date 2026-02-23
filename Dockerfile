@@ -1,33 +1,38 @@
-FROM php:8.4-cli
+FROM php:8.2-apache
 
 RUN apt-get update && apt-get install -y \
     git curl unzip zip \
     libzip-dev \
     libpq-dev \
-    && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip exif \
-    && rm -rf /var/lib/apt/lists/*
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip exif
 
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs
+# Abilita mod_rewrite
+RUN a2enmod rewrite
+
+# Imposta DocumentRoot su public
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
+    /etc/apache2/sites-available/*.conf \
+    /etc/apache2/apache2.conf \
+    /etc/apache2/conf-available/*.conf
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 COPY composer.json composer.lock ./
-RUN composer install \
-    --no-dev \
-    --optimize-autoloader \
-    --no-interaction \
-    --prefer-dist \
-    --no-scripts
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
 COPY . .
 
 RUN mkdir -p storage/logs bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-RUN npm ci && npm run build
+# Build frontend
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
+    && npm ci \
+    && npm run build
 
-EXPOSE 10000
-CMD sh -c "php artisan migrate --force || true; php -S 0.0.0.0:${PORT:-10000} -t public"
+# Migrations al boot (puoi anche toglierle dopo)
+CMD php artisan migrate --force && apache2-foreground
