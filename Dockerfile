@@ -54,12 +54,12 @@ RUN php artisan vendor:publish --tag=blade-flags-assets --force || true \
 # Se hai package-lock.json => usa npm ci (consigliato)
 RUN npm ci \
 # ---- Publish assets vendor (flags, ecc.) ----
+  && npm run build \
+  && ls -la public || true \
+  && ls -la public/build || true \
+  && ls -la public/build/assets || true \
+  && test -f public/build/manifest.json
 RUN php artisan vendor:publish --tag=blade-flags --force || true
-    && npm run build \
-    && ls -la public || true \
-    && ls -la public/build || true \
-    && ls -la public/build/assets || true \
-    && test -f public/build/manifest.json
   
 # DEBUG: stampa contenuto build nei Build Logs (forza output anche se c'è cache)
 RUN echo "==== DEBUG VITE BUILD FILES ====" \
