@@ -12,6 +12,22 @@ RUN apt-get update && apt-get install -y \
 RUN a2enmod rewrite
 # Abilita .htaccess (AllowOverride All)
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
+# ---- FIX STATIC FILES + .htaccess su /public (fondamentale per Vite build/) ----
+RUN printf '%s\n' \
+'<VirtualHost *:80>' \
+'    DocumentRoot /var/www/html/public' \
+'    <Directory /var/www/html/public>' \
+'        Options Indexes FollowSymLinks' \
+'        AllowOverride All' \
+'        Require all granted' \
+'    </Directory>' \
+'    ErrorLog /proc/self/fd/2' \
+'    CustomLog /proc/self/fd/1 combined' \
+'</VirtualHost>' \
+> /etc/apache2/sites-available/000-default.conf
+
+# (facoltativo) evita warning ServerName
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
