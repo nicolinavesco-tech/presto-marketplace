@@ -10,21 +10,10 @@ RUN apt-get update && apt-get install -y \
 
 # 2) Apache config: rewrite + DocumentRoot = /public
 RUN a2enmod rewrite
+RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 # Abilita .htaccess (AllowOverride All)
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
-# ---- FIX STATIC FILES + .htaccess su /public (fondamentale per Vite build/) ----
-RUN printf '%s\n' \
-'<VirtualHost *:80>' \
-'    DocumentRoot /var/www/html/public' \
-'    <Directory /var/www/html/public>' \
-'        Options Indexes FollowSymLinks' \
-'        AllowOverride All' \
-'        Require all granted' \
-'    </Directory>' \
-'    ErrorLog /proc/self/fd/2' \
-'    CustomLog /proc/self/fd/1 combined' \
-'</VirtualHost>' \
-> /etc/apache2/sites-available/000-default.conf
+
 
 # (facoltativo) evita warning ServerName
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
@@ -64,6 +53,8 @@ RUN php artisan vendor:publish --tag=blade-flags-assets --force || true \
 # 7) Build frontend (Vite) + check manifest
 # Se hai package-lock.json => usa npm ci (consigliato)
 RUN npm ci \
+# ---- Publish assets vendor (flags, ecc.) ----
+RUN php artisan vendor:publish --tag=blade-flags --force || true
     && npm run build \
     && ls -la public || true \
     && ls -la public/build || true \
