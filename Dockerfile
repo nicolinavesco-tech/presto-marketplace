@@ -10,6 +10,9 @@ RUN apt-get update && apt-get install -y \
 
 # 2) Apache config: rewrite + DocumentRoot = /public
 RUN a2enmod rewrite
+# Abilita .htaccess (AllowOverride All)
+RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
+
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
  && sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
