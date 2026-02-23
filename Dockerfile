@@ -23,7 +23,7 @@ WORKDIR /var/www/html
 COPY . .
 
 # 5) Dipendenze PHP
-RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-scripts
 
 # Dipendenze e build frontend (crea public/build/manifest.json)
 RUN npm install
@@ -49,4 +49,4 @@ EXPOSE 80
 
 # 9) (OPZIONALE ma utile su Render free) migrations all'avvio
 # Se non vuoi farle ad ogni boot, puoi togliere migrate e farlo una volta sola.
-CMD sh -c "php artisan migrate --force || true; apache2-foreground"
+CMD sh -c "php artisan migrate --force || true; php artisan package:discover --ansi || true; apache2-foreground"
