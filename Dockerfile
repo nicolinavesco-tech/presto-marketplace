@@ -5,27 +5,28 @@ RUN apt-get update && apt-get install -y \
     git curl unzip zip \
     libzip-dev \
     libpq-dev \
+    libgd-dev \
     && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip exif \
     && rm -rf /var/lib/apt/lists/*
 
-# 2) Apache config: rewrite + DocumentRoot = /public
+# 2) Apache config
 RUN a2enmod rewrite
-RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
-# Abilita .htaccess (AllowOverride All)
-RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
 
+# ✅ FIX: Imposta il DocumentRoot DIRETTAMENTE (senza variabile d'ambiente)
+RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf \
+ && sed -i 's|AllowOverride None|AllowOverride All|g' /etc/apache2/apache2.conf \
+ && echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# (facoltativo) evita warning ServerName
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+# ✅ FIX: Aggiungi anche il blocco Directory esplicito per /public
+RUN echo '<Directory /var/www/html/public>\n\
+    Options Indexes FollowSymLinks\n\
+    AllowOverride All\n\
+    Require all granted\n\
+</Directory>' >> /etc/apache2/apache2.conf
 
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
- && sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
-
-# 3) Install Node.js (così npm esiste)
+# 3) Node.js
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get update && apt-get install -y nodejs \
-    && node -v && npm -v \
+    && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
 # 4) Composer
@@ -33,57 +34,52 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-# 5) Copia tutto il progetto (così artisan esiste)
+# 5) Copia progetto
 COPY . .
 
-# 6) Dipendenze PHP (no-scripts per evitare sqlite/package:discover in build)
-RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-scripts
+# 6) Crea .env se non esiste (per artisan commands in build)
+RUN if [ ! -f .env ]; then cp .env.example .env; fi \
+    && php artisan key:generate --force || true
 
-# Crea link storage pubblico
+# 7) Composer install
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-scripts \
+    && composer dump-autoload --optimize
+
+# 8) Pubblica vendor assets (bandiere)
+# ✅ FIX: eseguiamo PRIMA del build npm così Vite può includerli se necessario
+RUN php artisan vendor:publish --tag=blade-flags-assets --force 2>/dev/null || true \
+ && php artisan vendor:publish --tag=blade-flags --force 2>/dev/null || true \
+ && php artisan vendor:publish --tag=public --force 2>/dev/null || true
+
+# ✅ DEBUG: verifica dove sono finite le bandiere
+RUN echo "=== BANDIERE PUBBLICATE ===" \
+ && find public -name "country-*.svg" | head -20 || echo "NESSUNA BANDIERA TROVATA" \
+ && echo "=== VENDOR DIR ===" \
+ && ls -la public/vendor/ 2>/dev/null || echo "public/vendor non esiste"
+
+# 9) Build frontend
+RUN npm ci && npm run build
+
+# ✅ DEBUG: verifica build Vite
+RUN echo "=== VITE BUILD ===" \
+ && ls -la public/build/ \
+ && ls -la public/build/assets/ | head -20 \
+ && cat public/build/manifest.json | head -20
+
+# 10) Storage link
 RUN php artisan storage:link || true
 
-# ✅ AGGIUNTA: pubblica gli asset dei pacchetti (bandiere) in public/vendor/...
-# (metto più tentativi così copriamo tag diversi senza far fallire la build)
-RUN php artisan vendor:publish --tag=blade-flags-assets --force || true \
- && php artisan vendor:publish --tag=blade-flags --force || true \
- && php artisan vendor:publish --tag=public --force || true \
- && ls -la public/vendor || true \
- && find public/vendor -maxdepth 3 -type f -name "country-*.svg" | head -n 20 || true
-
-# 7) Build frontend (Vite) + check manifest
-# Se hai package-lock.json => usa npm ci (consigliato)
-RUN npm ci \
-# ---- Publish assets vendor (flags, ecc.) ----
-  && npm run build \
-  && ls -la public || true \
-  && ls -la public/build || true \
-  && ls -la public/build/assets || true \
-  && test -f public/build/manifest.json
-RUN php artisan vendor:publish --tag=blade-flags --force || true
-  
-# DEBUG: stampa contenuto build nei Build Logs (forza output anche se c'è cache)
-RUN echo "==== DEBUG VITE BUILD FILES ====" \
- && pwd \
- && ls -la public || true \
- && ls -la public/build || true \
- && ls -la public/build/assets || true \
- && find public/build -maxdepth 2 -type f -print || true \
- && echo "==== END DEBUG ===="
-
-# ✅ AGGIUNTA: verifica che ESISTANO davvero i file hashati (css/js) dentro assets
-RUN find public/build/assets -maxdepth 1 -type f \( -name "*.css" -o -name "*.js" \) | head -n 50 || true
-
-# 8) Permessi Laravel
-RUN mkdir -p storage/logs bootstrap/cache \
-    && chown -R www-data:www-data storage bootstrap/cache \
+# 11) Permessi
+RUN mkdir -p storage/logs storage/app/public bootstrap/cache \
+    && chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html \
     && chmod -R 775 storage bootstrap/cache
-
-# ✅ AGGIUNTA: permessi anche per gli asset buildati (così Apache li serve sicuro)
-RUN chown -R www-data:www-data public/build public/vendor || true \
-    && chmod -R 755 public/build public/vendor || true
 
 EXPOSE 80
 
-# 9) Runtime: migrate (per Render free) + package discover + Apache
-# ✅ AGGIUNTA: ripubblica bandiere + storage link anche a runtime (utile se Render resetta /public)
-CMD sh -c "php artisan migrate:fresh --force; php artisan storage:link || true; php artisan vendor:publish --tag=blade-flags-assets --force || true; apache2-foreground"
+# 12) CMD runtime — NON ricostruire assets, solo migrate + apache
+# ✅ FIX: rimosso vendor:publish dal CMD (i file devono già esistere dall'immagine)
+CMD sh -c "\
+    php artisan config:clear || true && \
+    php artisan migrate --force || true && \
+    apache2-foreground"
