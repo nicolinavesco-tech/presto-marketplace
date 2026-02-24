@@ -59,5 +59,5 @@ CMD sh -c "\
     php artisan package:discover --ansi || true && \
     php artisan config:clear || true && \
     php artisan migrate --force || true && \
-    php artisan db:seed --force || true && \
+    php artisan db:seed --force && \
     apache2-foreground"
