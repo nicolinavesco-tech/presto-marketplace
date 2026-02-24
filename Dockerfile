@@ -31,8 +31,7 @@ WORKDIR /var/www/html
 COPY . .
 
 # 6) Composer install
-RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-scripts \
-    && composer dump-autoload --optimize
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-scripts
 
 # 7) Copia manuale SVG bandiere
 RUN mkdir -p public/vendor/blade-flags \
@@ -56,6 +55,7 @@ EXPOSE 80
 
 # 11) Runtime
 CMD sh -c "\
+    php artisan package:discover --ansi || true && \
     php artisan config:clear || true && \
     php artisan migrate --force || true && \
     apache2-foreground"
