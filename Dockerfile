@@ -42,6 +42,7 @@ RUN mkdir -p public/vendor/blade-flags \
 # 8) Build frontend
 RUN npm ci && npm run build
 
+
 # 9) Storage link (non richiede DB)
 RUN php artisan storage:link || true
 
@@ -58,4 +59,5 @@ CMD sh -c "\
     php artisan package:discover --ansi || true && \
     php artisan config:clear || true && \
     php artisan migrate --force || true && \
+    php artisan db:seed --force || true && \
     apache2-foreground"
