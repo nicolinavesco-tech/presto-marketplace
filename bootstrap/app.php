@@ -3,10 +3,10 @@
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsRevisor;
 use App\Http\Middleware\SetLocaleMiddleware;
+use App\Http\Middleware\TrustProxies;   
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Ramsey\Collection\Set;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -15,10 +15,14 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->web(append: [SetLocaleMiddleware::class]);
+        $middleware->web(append: [
+            TrustProxies::class,       
+            SetLocaleMiddleware::class
+        ]);
+
         $middleware->alias([
             "isRevisor"=> IsRevisor::class,
-            "isAdmin"=>IsAdmin::class,
+            "isAdmin"=> IsAdmin::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
