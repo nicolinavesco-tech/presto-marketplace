@@ -1,26 +1,25 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Cloudinary URL
     |--------------------------------------------------------------------------
-    |
-    | This reads the CLOUDINARY_URL from your environment variables.
-    |
+    | Format: cloudinary://API_KEY:API_SECRET@CLOUD_NAME
     */
-
     'cloud_url' => env('CLOUDINARY_URL'),
 
     /*
     |--------------------------------------------------------------------------
-    | Secure URLs
+    | Upload preset (solo se fai upload unsigned dal frontend)
     |--------------------------------------------------------------------------
     */
+    'upload_preset' => env('CLOUDINARY_UPLOAD_PRESET'),
 
-    'url' => [
-        'secure' => true,
-    ],
-
+    /*
+    |--------------------------------------------------------------------------
+    | Altre opzioni
+    |--------------------------------------------------------------------------
+    */
+    'notification_url' => env('CLOUDINARY_NOTIFICATION_URL'),
 ];
