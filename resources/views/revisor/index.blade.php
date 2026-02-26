@@ -27,40 +27,40 @@
                                 alt="Immagine {{ $key +1 }} dell'articolo '{{ $article_to_check->title }}'">
                         </div>
                         <div class="col-12 col-md-6 d-flex flex-column justify-content-center w-25">
-                                <h5 class="mb-3">Labels</h5>
-                                @if ($image->labels)
-                                @foreach ($image->labels as $label)
-                                #{{$label}},
-                                @endforeach
-                                @else
-                                <p class="fst-italic text-muted mb-3">No labels</p>
-                                @endif
-                                <h5 class="mt-3">Ratings</h5>
-                                <div class="d-flex align-items-center mb-2">
-                                    <div class="me-2 {{$image->adult}}">
-                                    </div>
-                                    <span>adult</span>
+                            <h5 class="mb-3">Labels</h5>
+                            @if ($image->labels)
+                            @foreach ($image->labels as $label)
+                            #{{$label}},
+                            @endforeach
+                            @else
+                            <p class="fst-italic text-muted mb-3">No labels</p>
+                            @endif
+                            <h5 class="mt-3">Ratings</h5>
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="me-2 {{$image->adult}}">
                                 </div>
-                                <div class="d-flex align-items-center mb-2">
-                                    <div class="me-2 {{$image->violence}}">
-                                    </div>
-                                    <div class="col-10">violence</div>
+                                <span>adult</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="me-2 {{$image->violence}}">
                                 </div>
-                                <div class="d-flex align-items-center mb-2">
-                                        <div class="me-2 {{$image->spoof}}">
-                                    </div>
-                                    <div class="col-10">spoof</div>
+                                <div class="col-10">violence</div>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="me-2 {{$image->spoof}}">
                                 </div>
-                                <div class="d-flex align-items-center mb-2">
-                                        <div class="me-2 {{$image->racy}}">
-                                        </div>
-                                    <div class="col-10">racy</div>
+                                <div class="col-10">spoof</div>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="me-2 {{$image->racy}}">
                                 </div>
-                                <div class="d-flex align-items-center mb-2">
-                                    <div class="me-2 {{$image->medical}}">
-                                    </div>
-                                    <div class="col-10">medical</div>
+                                <div class="col-10">racy</div>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="me-2 {{$image->medical}}">
                                 </div>
+                                <div class="col-10">medical</div>
+                            </div>
                         </div>
                     </div>
                     @endforeach
@@ -78,7 +78,10 @@
         <div class="col-6 d-flex flex-column justify-content-evenly align-items-center">
             <div class="w-75 text-center mt-5">
                 <h3>{{ $article_to_check->title }}</h3>
-                <h4>{{ $article_to_check->user->name }}</h4>
+                <h4>{{ $article_to_check->user?->name ?? 'Utente sconosciuto' }}</h4>
+                <h4 class="fst-italic text-muted">
+                    {{ $article_to_check->category?->name ?? 'Categoria non disponibile' }}
+                </h4>
                 <h4>{{ $article_to_check->price }}€</h4>
                 <h4 class="fst-italic text-muted">
                     {{ $article_to_check->category->name }}
