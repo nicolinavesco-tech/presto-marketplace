@@ -63,7 +63,7 @@ class CreateArticleForm extends Component
                         new GoogleVisionSafeSearch($newImage->id),
                         new GoogleVisionLabelImage($newImage->id),
 
-                    
+
                     ])->dispatch($newImage->id);
                 } catch (\Throwable $e) {
                     logger()->error('Image pipeline failed', [
@@ -87,14 +87,32 @@ class CreateArticleForm extends Component
                 // 3) Upload su Cloudinary usando il file locale
                 $absolutePath = storage_path('app/public/' . $localPath);
 
-                if (!file_exists($absolutePath)) {
-                    throw new \Exception("File non trovato: " . $absolutePath);
+                try {
+
+                    if (!file_exists($absolutePath)) {
+                        throw new \Exception("File non trovato: " . $absolutePath);
+                    }
+
+                    if (!env('CLOUDINARY_URL')) {
+                        throw new \Exception('CLOUDINARY_URL non configurata su Render');
+                    }
+
+                    $result = Cloudinary::upload($absolutePath, [
+                        'folder' => "presto/articles/{$this->article->id}",
+                    ]);
+
+                    // 4) Aggiorna DB con URL Cloudinary
+                    $newImage->update([
+                        'path' => $result->getSecurePath(),
+                        'public_id' => $result->getPublicId(),
+                    ]);
+                } catch (\Throwable $e) {
+
+                    logger()->error('Cloudinary upload failed', [
+                        'image_id' => $newImage->id,
+                        'error' => $e->getMessage(),
+                    ]);
                 }
-
-                $result = Cloudinary::upload($absolutePath, [
-                    'folder' => "presto/articles/{$this->article->id}",
-                ]);
-
                 // 4) Aggiorna DB con URL Cloudinary (ora la view vede l'immagine)
                 $newImage->update([
                     'path' => $result->getSecurePath(),
