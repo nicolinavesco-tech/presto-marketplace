@@ -13,7 +13,7 @@ if (!$cloudUrl) {
 }
 
 return [
-    'cloud_url' => $cloudUrl,
+    'url' => $cloudUrl,
     'upload_preset' => env('CLOUDINARY_UPLOAD_PRESET'),
     'notification_url' => env('CLOUDINARY_NOTIFICATION_URL'),
 ];
