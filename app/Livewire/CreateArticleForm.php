@@ -59,9 +59,11 @@ class CreateArticleForm extends Component
                 // 2) Esegui pipeline 
                 try {
                     RemoveFaces::withChain([
-                        new ResizeImage($newImage->path, 1000, 1000),
+                        // ✅ tieni questi (Google Vision)
                         new GoogleVisionSafeSearch($newImage->id),
                         new GoogleVisionLabelImage($newImage->id),
+
+                    
                     ])->dispatch($newImage->id);
                 } catch (\Throwable $e) {
                     logger()->error('Image pipeline failed', [
