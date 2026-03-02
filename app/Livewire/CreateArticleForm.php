@@ -44,34 +44,40 @@ class CreateArticleForm extends Component
             'user_id' => Auth::id(),
         ]);
 
-        if (count($this->images) > 0) {
+        if (!empty($this->images) && count($this->images) > 0) {
+
             foreach ($this->images as $image) {
 
-                if (app()->environment('production')) {
-
-                    $result = Cloudinary::upload($image->getRealPath(), [
-                        'folder' => "presto/articles/{$this->article->id}",
-                    ]);
-
-                    $secureUrl = $result->getSecurePath();
-
-                    $this->article->images()->create([
-                        'path' => $secureUrl, 
-                    ]);
-
-                    continue;
-                }
-
+                // 1) Salva localmente (serve alla pipeline)
                 $newFileName = "articles/{$this->article->id}";
+                $localPath = $image->store($newFileName, 'public'); // es: articles/4/xxxxx.jpg
+
                 $newImage = $this->article->images()->create([
-                    'path' => $image->store($newFileName, 'public')
+                    'path' => $localPath, // temporaneo: path locale
                 ]);
 
+                // 2) Esegui pipeline (con QUEUE=sync viene eseguita subito)
                 RemoveFaces::withChain([
                     new ResizeImage($newImage->path, 1000, 1000),
                     new GoogleVisionSafeSearch($newImage->id),
                     new GoogleVisionLabelImage($newImage->id),
                 ])->dispatch($newImage->id);
+
+                // 3) Upload su Cloudinary usando il file locale
+                $absolutePath = storage_path('app/public/' . $localPath);
+
+                $result = Cloudinary::upload($absolutePath, [
+                    'folder' => "presto/articles/{$this->article->id}",
+                ]);
+
+                // 4) Aggiorna DB con URL Cloudinary (ora la view vede l'immagine)
+                $newImage->update([
+                    'path' => $result->getSecurePath(),
+                    'public_id' => $result->getPublicId(),
+                ]);
+
+                // 5) (opzionale) cancella il file locale per non accumulare roba su Render
+                // File::delete($absolutePath);
             }
 
             File::deleteDirectory(storage_path("/app/livewire-tmp"));
@@ -80,6 +86,7 @@ class CreateArticleForm extends Component
         session()->flash("status", "Articolo caricato con successo!");
         $this->cleanForm();
     }
+
     protected function cleanForm()
     {
         $this->title = '';
