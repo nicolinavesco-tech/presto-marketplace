@@ -66,6 +66,10 @@ class CreateArticleForm extends Component
                 // 3) Upload su Cloudinary usando il file locale
                 $absolutePath = storage_path('app/public/' . $localPath);
 
+                if (!file_exists($absolutePath)) {
+                    throw new \Exception("File non trovato: " . $absolutePath);
+                }
+
                 $result = Cloudinary::upload($absolutePath, [
                     'folder' => "presto/articles/{$this->article->id}",
                 ]);
