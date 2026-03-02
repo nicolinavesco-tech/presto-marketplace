@@ -56,12 +56,31 @@ class CreateArticleForm extends Component
                     'path' => $localPath, // temporaneo: path locale
                 ]);
 
-                // 2) Esegui pipeline (con QUEUE=sync viene eseguita subito)
-                RemoveFaces::withChain([
-                    new ResizeImage($newImage->path, 1000, 1000),
-                    new GoogleVisionSafeSearch($newImage->id),
-                    new GoogleVisionLabelImage($newImage->id),
-                ])->dispatch($newImage->id);
+                // 2) Esegui pipeline 
+                try {
+                    RemoveFaces::withChain([
+                        new ResizeImage($newImage->path, 1000, 1000),
+                        new GoogleVisionSafeSearch($newImage->id),
+                        new GoogleVisionLabelImage($newImage->id),
+                    ])->dispatch($newImage->id);
+                } catch (\Throwable $e) {
+                    logger()->error('Image pipeline failed', [
+                        'image_id' => $newImage->id,
+                        'error' => $e->getMessage(),
+                    ]);
+                }
+
+                // Upload Cloudinary (anche se pipeline fallisce)
+                $absolutePath = storage_path('app/public/' . $localPath);
+
+                $result = Cloudinary::upload($absolutePath, [
+                    'folder' => "presto/articles/{$this->article->id}",
+                ]);
+
+                $newImage->update([
+                    'path' => $result->getSecurePath(),
+                    'public_id' => $result->getPublicId(),
+                ]);
 
                 // 3) Upload su Cloudinary usando il file locale
                 $absolutePath = storage_path('app/public/' . $localPath);
