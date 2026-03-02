@@ -10,7 +10,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "cloudinary-labs/cloudinary-laravel": "^3.0",
         "doctrine/dbal": "^4.4",
         "google/cloud-vision": "^2.1",
         "laravel/fortify": "*",
@@ -21,7 +20,8 @@
         "livewire/livewire": "^3.0@beta",
         "outhebox/blade-flags": "^1.5",
         "spatie/image": "^3.9",
-        "teamtnt/laravel-scout-tntsearch-driver": "^15.0"
+        "teamtnt/laravel-scout-tntsearch-driver": "^15.0",
+        "uploadcare/uploadcare-php": "^4.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
