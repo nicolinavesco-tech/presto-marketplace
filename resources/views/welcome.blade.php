@@ -176,7 +176,7 @@
                         <a href="" class="findMore">{{ __('ui.learnMore') }}</a>
                     </div>
                     <div class="d-flex flex-column align-items-center mt-2 ">
-                        <img src="./media/Section4/SecondImage.png" alt="third-section" class="img-fluid w-100">
+                        <img src="./media/Section4/secondImage.png" alt="third-section" class="img-fluid w-100">
                         <a href="" class="findMore">{{ __('ui.activateNow') }}</a>
                     </div>
                 </div>
