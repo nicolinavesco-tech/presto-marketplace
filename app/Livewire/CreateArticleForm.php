@@ -88,37 +88,45 @@ class CreateArticleForm extends Component
                 $absolutePath = storage_path('app/public/' . $localPath);
 
                 try {
-
                     if (!file_exists($absolutePath)) {
-                        throw new \Exception("File non trovato: " . $absolutePath);
+                        throw new \Exception("File non trovato: {$absolutePath}");
                     }
 
-                    if (!env('CLOUDINARY_URL')) {
-                        throw new \Exception('CLOUDINARY_URL non configurata su Render');
+                    // Meglio usare config invece di env in production
+                    if (!config('cloudinary.cloud_url')) {
+                        throw new \Exception('Cloudinary non configurato: cloudinary.cloud_url mancante');
                     }
 
-                    $result = Cloudinary::upload($absolutePath, [
-                        'folder' => "presto/articles/{$this->article->id}",
+                    $articleId = $this->article?->id;
+                    if (!$articleId) {
+                        throw new \Exception('Article ID mancante (article non creato?)');
+                    }
+                    logger()->info('Cloudinary debug', [
+                        'has_env' => !empty(env('CLOUDINARY_URL')),
+                        'has_config' => !empty(config('cloudinary.cloud_url')),
+                        'config_len' => strlen((string) config('cloudinary.cloud_url')),
+                        'file_exists' => file_exists($absolutePath),
+                        'file_size' => file_exists($absolutePath) ? filesize($absolutePath) : null,
                     ]);
 
-                    // 4) Aggiorna DB con URL Cloudinary
+                    $result = Cloudinary::upload($absolutePath, [
+                        'folder' => "presto/articles/{$articleId}",
+                    ]);
+
+                    // 4) Aggiorna DB con URL Cloudinary (ora la view vede l'immagine)
                     $newImage->update([
                         'path' => $result->getSecurePath(),
                         'public_id' => $result->getPublicId(),
                     ]);
                 } catch (\Throwable $e) {
-
                     logger()->error('Cloudinary upload failed', [
-                        'image_id' => $newImage->id,
+                        'article_id' => $this->article?->id,
+                        'image_id' => $newImage->id ?? null,
+                        'localPath' => $localPath ?? null,
+                        'absolutePath' => $absolutePath ?? null,
                         'error' => $e->getMessage(),
                     ]);
                 }
-                // 4) Aggiorna DB con URL Cloudinary (ora la view vede l'immagine)
-                $newImage->update([
-                    'path' => $result->getSecurePath(),
-                    'public_id' => $result->getPublicId(),
-                ]);
-
                 // 5) (opzionale) cancella il file locale per non accumulare roba su Render
                 // File::delete($absolutePath);
             }
