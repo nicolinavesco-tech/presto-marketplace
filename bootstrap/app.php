@@ -3,7 +3,8 @@
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsRevisor;
 use App\Http\Middleware\SetLocaleMiddleware;
-use App\Http\Middleware\TrustProxies;   
+use App\Http\Middleware\TrustProxies;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -15,14 +16,20 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+
+        // ✅ TrustProxies deve essere globale
+        $middleware->append([
+            TrustProxies::class,
+        ]);
+
+        // ✅ Middleware web (session/csrf sono già inclusi dal framework)
         $middleware->web(append: [
-            TrustProxies::class,       
-            SetLocaleMiddleware::class
+            SetLocaleMiddleware::class,
         ]);
 
         $middleware->alias([
-            "isRevisor"=> IsRevisor::class,
-            "isAdmin"=> IsAdmin::class,
+            'isRevisor' => IsRevisor::class,
+            'isAdmin'   => IsAdmin::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
