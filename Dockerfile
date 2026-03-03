@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip exif \
     && rm -rf /var/lib/apt/lists/*
 
-# 2) Apache modules + config
+# 2) Apache config
 RUN a2enmod rewrite headers
 RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf \
  && sed -i 's|AllowOverride None|AllowOverride All|g' /etc/apache2/apache2.conf \
@@ -33,21 +33,18 @@ WORKDIR /var/www/html
 # 5) Copy project
 COPY . .
 
-# 6) Composer install (KEEP --no-scripts) + autoload + package discovery
+# 6) Composer install (KEEP --no-scripts)
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-scripts \
- && composer dump-autoload -o \
- && php artisan package:discover --ansi
+ && composer dump-autoload -o
 
-# 7) Copy SVG flags (your workaround)
+# 7) Copy SVG flags workaround
 RUN mkdir -p public/vendor/blade-flags \
- && cp vendor/outhebox/blade-flags/resources/svg/*.svg public/vendor/blade-flags/ \
- && echo "=== SVG copiati ===" \
- && ls public/vendor/blade-flags/ | head -20
+ && cp vendor/outhebox/blade-flags/resources/svg/*.svg public/vendor/blade-flags/ || true
 
 # 8) Build frontend
 RUN npm ci && npm run build
 
-# 9) Storage link (doesn't require DB)
+# 9) Storage link
 RUN php artisan storage:link || true
 
 # 10) Permissions
@@ -58,8 +55,9 @@ RUN mkdir -p storage/logs storage/app/public bootstrap/cache \
 
 EXPOSE 80
 
-# 11) Runtime: clear ALL caches + migrate + run apache
+# 11) Runtime (Render env variables are available here)
 CMD sh -c "\
+    php artisan package:discover --ansi && \
     php artisan optimize:clear || true && \
     php artisan migrate --force || true && \
     apache2-foreground"
