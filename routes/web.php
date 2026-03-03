@@ -6,11 +6,8 @@ use App\Http\Controllers\PublicController;
 use App\Http\Controllers\RevisorController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::get('/__cookie_test', function () {
-    return response('ok')
-        ->header('X-DIAGNOSTIC', 'laravel')
-        ->cookie('test', '1', 10);
+    return "SE VEDI QUESTO IL CODICE È AGGIORNATO 99999";
 });
 
 Route::get('/', [PublicController::class, "home"])->name('home');
