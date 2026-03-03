@@ -59,9 +59,4 @@ CMD sh -c "\
     php artisan package:discover --ansi || true && \
     php artisan config:clear || true && \
     php artisan migrate --force || true && \
-    RUN a2enmod headers
-    RUN echo "Header always set X-Debug-Server apache" >> /etc/apache2/apache2.conf
-
-    EXPOSE 80
-
-    CMD ["apache2-foreground"]
+    apache2-foreground"
