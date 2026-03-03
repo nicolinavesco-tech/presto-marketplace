@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/__cookie_test', function () {
-    session(['x' => 'y']);                 // forza session write
-    return response('ok')->cookie('test', '1', 10); // cookie banale
+    return response('ok')
+        ->header('X-DIAGNOSTIC', 'laravel')
+        ->cookie('test', '1', 10);
 });
 
 Route::get('/', [PublicController::class, "home"])->name('home');
