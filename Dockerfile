@@ -61,4 +61,7 @@ CMD sh -c "\
     php artisan migrate --force || true && \
     RUN a2enmod headers
     RUN echo "Header always set X-Debug-Server apache" >> /etc/apache2/apache2.conf
-    apache2-foreground"
+
+    EXPOSE 80
+
+    CMD ["apache2-foreground"]
