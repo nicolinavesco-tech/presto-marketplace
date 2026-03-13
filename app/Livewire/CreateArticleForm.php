@@ -6,33 +6,33 @@ use App\Jobs\GoogleVisionLabelImage;
 use App\Jobs\GoogleVisionSafeSearch;
 use App\Jobs\RemoveFaces;
 use App\Jobs\UploadImageToUploadcare;
+use App\Models\Article;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
-use App\Models\Article;
 
 class CreateArticleForm extends Component
 {
     use WithFileUploads;
 
-    public $images = [];
-    public $temporary_images;
+    public array $images = [];
+    public $temporary_images = [];
 
     #[Validate('required|min:5')]
-    public $title;
+    public $title = '';
 
     #[Validate('required|min:10')]
-    public $description;
+    public $description = '';
 
     #[Validate('required|numeric')]
-    public $price;
+    public $price = '';
 
     #[Validate('required')]
-    public $category;
+    public $category = '';
 
-    public $article;
+    public ?Article $article = null;
 
     public function store()
     {
@@ -46,72 +46,88 @@ class CreateArticleForm extends Component
             'user_id' => Auth::id(),
         ]);
 
-        if (!empty($this->images) && count($this->images) > 0) {
-            foreach ($this->images as $image) {
-                // 1) Salva localmente (serve alla pipeline)
+        if (!empty($this->images)) {
+            foreach ($this->images as $uploadedImage) {
                 $dir = "articles/{$this->article->id}";
-                $localPath = $image->store($dir, 'public'); // es: articles/4/xxxxx.jpg
+                $localPath = $uploadedImage->store($dir, 'public');
 
-                // 2) Crea record immagine: path locale
                 $newImage = $this->article->images()->create([
                     'path' => $localPath,
                 ]);
 
-                // 3) Pipeline (Vision ecc.) - usa path locale: OK
                 try {
-                    RemoveFaces::withChain([
-                        new GoogleVisionSafeSearch($newImage->id),
-                        new GoogleVisionLabelImage($newImage->id),
-
-                        // se vuoi anche resize/watermark in coda, mettilo qui
-                        // new ResizeImage($newImage->path, 600, 600),
-                    ])->dispatch($newImage->id);
+                    RemoveFaces::dispatchSync($newImage->id);
                 } catch (\Throwable $e) {
-                    logger()->error('Image pipeline failed', [
+                    logger()->error('RemoveFaces failed', [
                         'image_id' => $newImage->id,
                         'error' => $e->getMessage(),
                     ]);
                 }
 
-                // 4) Upload su Uploadcare (job separato)
-                //    Nota: se vuoi aspettare che RemoveFaces finisca prima di uploadare,
-                //    allora sposta l’upload in coda *dopo* RemoveFaces (dipende da come hai scritto RemoveFaces).
-                UploadImageToUploadcare::dispatch($newImage->id, true);
+                try {
+                    GoogleVisionSafeSearch::dispatchSync($newImage->id);
+                } catch (\Throwable $e) {
+                    logger()->error('GoogleVisionSafeSearch failed', [
+                        'image_id' => $newImage->id,
+                        'error' => $e->getMessage(),
+                    ]);
+                }
+
+                try {
+                    GoogleVisionLabelImage::dispatchSync($newImage->id);
+                } catch (\Throwable $e) {
+                    logger()->error('GoogleVisionLabelImage failed', [
+                        'image_id' => $newImage->id,
+                        'error' => $e->getMessage(),
+                    ]);
+                }
+
+                try {
+                    UploadImageToUploadcare::dispatchSync($newImage->id, true);
+                } catch (\Throwable $e) {
+                    logger()->error('UploadImageToUploadcare failed', [
+                        'image_id' => $newImage->id,
+                        'error' => $e->getMessage(),
+                    ]);
+                }
             }
 
-            // ripulisci tmp livewire
-            File::deleteDirectory(storage_path("/app/livewire-tmp"));
+            File::deleteDirectory(storage_path('app/livewire-tmp'));
         }
 
-        session()->flash("status", "Articolo caricato con successo!");
+        session()->flash('status', 'Articolo caricato con successo!');
         $this->cleanForm();
     }
 
-    protected function cleanForm()
+    protected function cleanForm(): void
     {
         $this->title = '';
         $this->description = '';
         $this->category = '';
         $this->price = '';
         $this->images = [];
+        $this->temporary_images = [];
     }
 
-    public function updatedTemporaryImages()
+    public function updatedTemporaryImages(): void
     {
         $this->validate([
+            'temporary_images' => 'max:6',
             'temporary_images.*' => 'image|max:1024',
-            'temporary_images' => 'max:6'
         ]);
 
         foreach ($this->temporary_images as $image) {
             $this->images[] = $image;
         }
+
+        $this->temporary_images = [];
     }
 
-    public function removeImage($key)
+    public function removeImage($key): void
     {
         if (array_key_exists($key, $this->images)) {
             unset($this->images[$key]);
+            $this->images = array_values($this->images);
         }
     }
 

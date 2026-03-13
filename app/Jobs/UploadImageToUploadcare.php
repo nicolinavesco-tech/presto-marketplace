@@ -10,43 +10,58 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\File;
+use Throwable;
 
 class UploadImageToUploadcare implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(public int $imageId, public bool $deleteLocalAfterUpload = true)
-    {
-    }
+    public function __construct(
+        public int $imageId,
+        public bool $deleteLocalAfterUpload = true
+    ) {}
 
     public function handle(): void
     {
         $image = Image::find($this->imageId);
-        if (!$image) return;
 
-        // Se già su CDN (quindi path è URL), non rifare
-        if (is_string($image->path) && preg_match('#^https?://#', $image->path)) {
+        if (!$image) {
             return;
         }
 
-        // File locale
-        $absolutePath = storage_path('app/public/' . $image->path);
+        if ($image->isRemote()) {
+            return;
+        }
 
-        $result = UploadcareService::uploadLocalFile($absolutePath);
+        $relativePath = ltrim((string) $image->path, '/');
+        $absolutePath = storage_path('app/public/' . $relativePath);
 
-        $image->update([
-            // qui decidiamo cosa salvare
-            // - path: URL CDN (così la view è semplice)
-            // - uploadcare_uuid: UUID separato (utile per transformations pulite)
-            'path' => $result['cdn_url'],
-            'uploadcare_uuid' => $result['uuid'],
-        ]);
+        if (!is_file($absolutePath)) {
+            logger()->error('Uploadcare: file locale non trovato', [
+                'image_id' => $this->imageId,
+                'path' => $absolutePath,
+            ]);
+            return;
+        }
 
-        if ($this->deleteLocalAfterUpload) {
-            // cancella file originale
-            if (file_exists($absolutePath)) {
-                @File::delete($absolutePath);
+        try {
+            $result = UploadcareService::uploadLocalFile($absolutePath);
+
+            $image->update([
+                'path' => $result['cdn_url'],
+                'uploadcare_uuid' => $result['uuid'],
+            ]);
+
+            if ($this->deleteLocalAfterUpload && is_file($absolutePath)) {
+                File::delete($absolutePath);
             }
+        } catch (Throwable $e) {
+            logger()->error('Uploadcare upload error', [
+                'image_id' => $this->imageId,
+                'message' => $e->getMessage(),
+            ]);
+
+            throw $e;
         }
     }
 }

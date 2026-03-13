@@ -2,59 +2,57 @@
 
 namespace App\Services;
 
-use Uploadcare\Api;
-use Uploadcare\Configuration;
+use Illuminate\Support\Facades\Http;
+use RuntimeException;
 
 class UploadcareService
 {
-    public static function client(): Api
-    {
-        $public = config('uploadcare.public_key');
-        $secret = config('uploadcare.secret_key');
-
-        if (!$public || !$secret) {
-            throw new \RuntimeException(
-                'Uploadcare non configurato: UPLOADCARE_PUBLIC_KEY / UPLOADCARE_SECRET_KEY mancanti.'
-            );
-        }
-
-        // ✅ modo corretto per v4.x
-        $configuration = Configuration::create($public, $secret);
-
-        return new Api($configuration);
-    }
-
-    /**
-     * Carica un file locale su Uploadcare e ritorna:
-     * - uuid
-     * - cdn_url (https://ucarecdn.com/<uuid>/)
-     */
     public static function uploadLocalFile(string $absolutePath): array
     {
-        if (!file_exists($absolutePath)) {
-            throw new \RuntimeException("File non trovato: {$absolutePath}");
+        if (!is_file($absolutePath)) {
+            throw new RuntimeException("File non trovato: {$absolutePath}");
         }
 
-        $api = self::client();
-        $uploader = $api->uploader();
+        $publicKey = config('uploadcare.public_key');
+        $store = config('uploadcare.store') ? '1' : '0';
 
-        $mime = @mime_content_type($absolutePath) ?: 'application/octet-stream';
-
-        // ✅ upload da path (v4.x: fromPath)
-        $file = $uploader->fromPath($absolutePath, $mime);
-
-        // Il File object espone uuid
-        $uuid = method_exists($file, 'getUuid') ? $file->getUuid() : ($file->uuid ?? null);
-
-        if (!$uuid) {
-            throw new \RuntimeException('Uploadcare: UUID non ottenuto dalla risposta upload.');
+        if (empty($publicKey)) {
+            throw new RuntimeException('UPLOADCARE_PUBLIC_KEY mancante');
         }
 
-        $cdnBase = rtrim(config('uploadcare.cdn_base', 'https://ucarecdn.com'), '/');
+        $response = Http::asMultipart()
+            ->timeout(120)
+            ->post(rtrim(config('uploadcare.upload_base', 'https://upload.uploadcare.com'), '/') . '/base/', [
+                [
+                    'name' => 'UPLOADCARE_PUB_KEY',
+                    'contents' => $publicKey,
+                ],
+                [
+                    'name' => 'UPLOADCARE_STORE',
+                    'contents' => $store,
+                ],
+                [
+                    'name' => 'file',
+                    'contents' => fopen($absolutePath, 'r'),
+                    'filename' => basename($absolutePath),
+                ],
+            ]);
+
+        if (!$response->successful()) {
+            throw new RuntimeException('Uploadcare upload failed: ' . $response->body());
+        }
+
+        $uuid = $response->json('file');
+
+        if (empty($uuid)) {
+            throw new RuntimeException('UUID Uploadcare non ricevuto');
+        }
+
+        $cdnUrl = rtrim(config('uploadcare.cdn_base', 'https://ucarecdn.com'), '/') . '/' . $uuid . '/';
 
         return [
             'uuid' => $uuid,
-            'cdn_url' => "{$cdnBase}/{$uuid}/",
+            'cdn_url' => $cdnUrl,
         ];
     }
 }

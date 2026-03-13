@@ -27,60 +27,49 @@ class Image extends Model
 
     public function isRemote(): bool
     {
-        return is_string($this->path) && preg_match('#^https?://#', $this->path);
+        return is_string($this->path) && preg_match('#^https?://#i', $this->path) === 1;
     }
 
-    /**
-     * Ritorna URL immagine:
-     * - se locale: Storage::url(...)
-     * - se Uploadcare: usa uuid se presente, altrimenti usa path (URL)
-     *
-     * $w e $h opzionali:
-     * - se solo $w: resize width
-     * - se $w e $h: crop WxH center
-     */
     public function getUrl(?int $w = null, ?int $h = null): string
     {
-        // LOCALE
-        if (!$this->isRemote()) {
+        if (empty($this->path)) {
+            return '';
+        }
+
+        // REMOTO: Uploadcare
+        if ($this->isRemote()) {
+            $base = !empty($this->uploadcare_uuid)
+                ? 'https://ucarecdn.com/' . trim($this->uploadcare_uuid, '/') . '/'
+                : rtrim($this->path, '/') . '/';
+
             if (!$w && !$h) {
-                return Storage::url($this->path);
+                return $base;
             }
 
-            // se usi i crop locali generati dal tuo job ResizeImage
-            $path = dirname($this->path);
-            $filename = basename($this->path);
-            $file = "{$path}/crop_{$w}x{$h}_{$filename}";
-            return Storage::url($file);
+            if ($w && $h) {
+                return $base . "-/resize/{$w}x{$h}/";
+            }
+
+            if ($w) {
+                return $base . "-/resize/{$w}x/";
+            }
+
+            return $base . "-/resize/x{$h}/";
         }
 
-        // REMOTO (Uploadcare)
-        // Se hai uuid, costruisci URL pulito.
-        $cdnBase = rtrim(config('uploadcare.cdn_base', 'https://ucarecdn.com'), '/');
-        $base = $this->uploadcare_uuid
-            ? "{$cdnBase}/{$this->uploadcare_uuid}/"
-            : $this->path; // fallback: path già URL
-
-        // niente resize/crop
-        if (!$w && !$h) {
-            // puoi sempre chiedere format auto
-            return rtrim($base, '/') . "/-/format/auto/";
+        // LOCALE
+        if (!$w || !$h) {
+            return '/storage/' . ltrim($this->path, '/');
         }
 
-        // solo width
-        if ($w && !$h) {
-            return rtrim($base, '/') . "/-/resize/{$w}/-/format/auto/";
+        $dir = dirname($this->path);
+        $filename = basename($this->path);
+        $cropFile = "{$dir}/crop_{$w}x{$h}_{$filename}";
+
+        if (Storage::disk('public')->exists($cropFile)) {
+            return '/storage/' . ltrim($cropFile, '/');
         }
 
-        // crop WxH center
-        return rtrim($base, '/') . "/-/crop/{$w}x{$h}/center/-/format/auto/";
-    }
-
-    public static function getUrlByFilePath($filePath, $w = null, $h = null)
-    {
-        // Mantieni compatibilità con chiamate statiche del tuo progetto
-        $tmp = new self();
-        $tmp->path = $filePath;
-        return $tmp->getUrl($w, $h);
+        return '/storage/' . ltrim($this->path, '/');
     }
 }
