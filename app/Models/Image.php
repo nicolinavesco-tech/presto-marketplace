@@ -31,6 +31,7 @@ class Image extends Model
 
     public function getUrl(?int $w = null, ?int $h = null): string
     {
+        // 1) Uploadcare UUID
         if (filled($this->uploadcare_uuid)) {
             $base = 'https://ucarecdn.com/' . trim($this->uploadcare_uuid, '/') . '/';
 
@@ -49,23 +50,27 @@ class Image extends Model
             return $base;
         }
 
+        // 2) path remoto già valido
         if ($this->isRemote()) {
-            return rtrim($this->path, '/') . '/';
+            return $this->path;
         }
 
-        if (filled($this->path)) {
-            return '/storage/' . ltrim($this->path, '/');
-        }
+        // 3) fallback assoluto: immagine di default
+        $width = $w ?: 1200;
+        $height = $h ?: 1200;
 
-        return '';
+        return "https://picsum.photos/{$width}/{$height}";
     }
 
     public static function getUrlByFilePath($filePath, $w = null, $h = null): string
     {
         if (filled($filePath) && filter_var($filePath, FILTER_VALIDATE_URL)) {
-            return rtrim($filePath, '/') . '/';
+            return $filePath;
         }
 
-        return '/storage/' . ltrim((string) $filePath, '/');
+        $width = $w ?: 1200;
+        $height = $h ?: 1200;
+
+        return "https://picsum.photos/{$width}/{$height}";
     }
 }

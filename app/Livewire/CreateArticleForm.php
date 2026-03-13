@@ -65,8 +65,9 @@ class CreateArticleForm extends Component
                         'path' => $absolutePath,
                     ]);
 
+                    // fallback definitivo: niente path locale, solo immagine remota di default
                     $newImage = $this->article->images()->create([
-                        'path' => $localPath,
+                        'path' => 'https://picsum.photos/1200/1200',
                         'uploadcare_uuid' => null,
                     ]);
                 }
@@ -96,6 +97,10 @@ class CreateArticleForm extends Component
                         'image_id' => $newImage->id,
                         'error' => $e->getMessage(),
                     ]);
+                }
+
+                if (is_file($absolutePath)) {
+                    @unlink($absolutePath);
                 }
             }
 
