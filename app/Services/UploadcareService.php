@@ -13,23 +13,22 @@ class UploadcareService
             throw new RuntimeException("File non trovato: {$absolutePath}");
         }
 
-        $publicKey = config('uploadcare.public_key');
-        $store = config('uploadcare.store') ? '1' : '0';
+        $publicKey = env('UPLOADCARE_PUBLIC_KEY');
 
-        if (empty($publicKey)) {
+        if (!$publicKey) {
             throw new RuntimeException('UPLOADCARE_PUBLIC_KEY mancante');
         }
 
-        $response = Http::asMultipart()
-            ->timeout(120)
-            ->post(rtrim(config('uploadcare.upload_base', 'https://upload.uploadcare.com'), '/') . '/base/', [
+        $response = Http::timeout(120)
+            ->asMultipart()
+            ->post('https://upload.uploadcare.com/base/', [
                 [
                     'name' => 'UPLOADCARE_PUB_KEY',
                     'contents' => $publicKey,
                 ],
                 [
                     'name' => 'UPLOADCARE_STORE',
-                    'contents' => $store,
+                    'contents' => '1',
                 ],
                 [
                     'name' => 'file',
@@ -39,20 +38,18 @@ class UploadcareService
             ]);
 
         if (!$response->successful()) {
-            throw new RuntimeException('Uploadcare upload failed: ' . $response->body());
+            throw new RuntimeException('Uploadcare error: ' . $response->body());
         }
 
         $uuid = $response->json('file');
 
-        if (empty($uuid)) {
+        if (!$uuid) {
             throw new RuntimeException('UUID Uploadcare non ricevuto');
         }
 
-        $cdnUrl = rtrim(config('uploadcare.cdn_base', 'https://ucarecdn.com'), '/') . '/' . $uuid . '/';
-
         return [
             'uuid' => $uuid,
-            'cdn_url' => $cdnUrl,
+            'cdn_url' => 'https://ucarecdn.com/' . $uuid . '/',
         ];
     }
 }

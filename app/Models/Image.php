@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Storage;
 
 class Image extends Model
 {
@@ -27,7 +26,7 @@ class Image extends Model
 
     public function isRemote(): bool
     {
-        return is_string($this->path) && preg_match('#^https?://#i', $this->path) === 1;
+        return filled($this->path) && filter_var($this->path, FILTER_VALIDATE_URL);
     }
 
     public function getUrl(?int $w = null, ?int $h = null): string
@@ -36,40 +35,19 @@ class Image extends Model
             return '';
         }
 
-        // REMOTO: Uploadcare
         if ($this->isRemote()) {
-            $base = !empty($this->uploadcare_uuid)
-                ? 'https://ucarecdn.com/' . trim($this->uploadcare_uuid, '/') . '/'
-                : rtrim($this->path, '/') . '/';
-
-            if (!$w && !$h) {
-                return $base;
-            }
-
-            if ($w && $h) {
-                return $base . "-/resize/{$w}x{$h}/";
-            }
-
-            if ($w) {
-                return $base . "-/resize/{$w}x/";
-            }
-
-            return $base . "-/resize/x{$h}/";
-        }
-
-        // LOCALE
-        if (!$w || !$h) {
-            return '/storage/' . ltrim($this->path, '/');
-        }
-
-        $dir = dirname($this->path);
-        $filename = basename($this->path);
-        $cropFile = "{$dir}/crop_{$w}x{$h}_{$filename}";
-
-        if (Storage::disk('public')->exists($cropFile)) {
-            return '/storage/' . ltrim($cropFile, '/');
+            return $this->path;
         }
 
         return '/storage/' . ltrim($this->path, '/');
+    }
+
+    public static function getUrlByFilePath($filePath, $w = null, $h = null): string
+    {
+        if (filled($filePath) && filter_var($filePath, FILTER_VALIDATE_URL)) {
+            return $filePath;
+        }
+
+        return '/storage/' . ltrim((string) $filePath, '/');
     }
 }

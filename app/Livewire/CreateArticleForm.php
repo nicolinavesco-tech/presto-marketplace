@@ -5,8 +5,8 @@ namespace App\Livewire;
 use App\Jobs\GoogleVisionLabelImage;
 use App\Jobs\GoogleVisionSafeSearch;
 use App\Jobs\RemoveFaces;
-use App\Jobs\UploadImageToUploadcare;
 use App\Models\Article;
+use App\Services\UploadcareService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Livewire\Attributes\Validate;
@@ -32,7 +32,7 @@ class CreateArticleForm extends Component
     #[Validate('required')]
     public $category = '';
 
-    public ?Article $article = null;
+    public $article = null;
 
     public function store()
     {
@@ -50,10 +50,26 @@ class CreateArticleForm extends Component
             foreach ($this->images as $uploadedImage) {
                 $dir = "articles/{$this->article->id}";
                 $localPath = $uploadedImage->store($dir, 'public');
+                $absolutePath = storage_path('app/public/' . $localPath);
 
-                $newImage = $this->article->images()->create([
-                    'path' => $localPath,
-                ]);
+                try {
+                    $uploadcare = UploadcareService::uploadLocalFile($absolutePath);
+
+                    $newImage = $this->article->images()->create([
+                        'path' => $uploadcare['cdn_url'],
+                        'uploadcare_uuid' => $uploadcare['uuid'],
+                    ]);
+                } catch (\Throwable $e) {
+                    logger()->error('Uploadcare upload failed', [
+                        'error' => $e->getMessage(),
+                        'path' => $absolutePath,
+                    ]);
+
+                    $newImage = $this->article->images()->create([
+                        'path' => $localPath,
+                        'uploadcare_uuid' => null,
+                    ]);
+                }
 
                 try {
                     RemoveFaces::dispatchSync($newImage->id);
@@ -77,15 +93,6 @@ class CreateArticleForm extends Component
                     GoogleVisionLabelImage::dispatchSync($newImage->id);
                 } catch (\Throwable $e) {
                     logger()->error('GoogleVisionLabelImage failed', [
-                        'image_id' => $newImage->id,
-                        'error' => $e->getMessage(),
-                    ]);
-                }
-
-                try {
-                    UploadImageToUploadcare::dispatchSync($newImage->id, true);
-                } catch (\Throwable $e) {
-                    logger()->error('UploadImageToUploadcare failed', [
                         'image_id' => $newImage->id,
                         'error' => $e->getMessage(),
                     ]);
