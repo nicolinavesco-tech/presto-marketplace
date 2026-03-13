@@ -31,21 +31,42 @@ class Image extends Model
 
     public function getUrl(?int $w = null, ?int $h = null): string
     {
-        if (empty($this->path)) {
-            return '';
+        // 1) priorità assoluta a uploadcare_uuid
+        if (filled($this->uploadcare_uuid)) {
+            $base = 'https://ucarecdn.com/' . trim($this->uploadcare_uuid, '/') . '/';
+
+            if ($w && $h) {
+                return $base . '-/resize/' . $w . 'x' . $h . '/';
+            }
+
+            if ($w) {
+                return $base . '-/resize/' . $w . 'x/';
+            }
+
+            if ($h) {
+                return $base . '-/resize/x' . $h . '/';
+            }
+
+            return $base;
         }
 
+        // 2) se path è già un URL remoto, usa quello
         if ($this->isRemote()) {
-            return $this->path;
+            return rtrim($this->path, '/') . '/';
         }
 
-        return '/storage/' . ltrim($this->path, '/');
+        // 3) fallback locale
+        if (filled($this->path)) {
+            return '/storage/' . ltrim($this->path, '/');
+        }
+
+        return '';
     }
 
     public static function getUrlByFilePath($filePath, $w = null, $h = null): string
     {
         if (filled($filePath) && filter_var($filePath, FILTER_VALIDATE_URL)) {
-            return $filePath;
+            return rtrim($filePath, '/') . '/';
         }
 
         return '/storage/' . ltrim((string) $filePath, '/');

@@ -18,9 +18,10 @@
                     <div class="carousel-inner">
                         @foreach ($article->images as $key => $image)
                         <div class="carousel-item @if ($loop->first) active @endif">
-                            <img src="{{ $image->getUrl(1000, 1000) }}"
+                            <img src="https://ucarecdn.com/{{ trim($image->uploadcare_uuid, '/') }}/" alt="Immagine articolo" style="max-width: 300px; height: auto;">
+                            <!-- <img src="{{ $image->getUrl(1000, 1000) }}"
                                 class="d-block w-100 rounded shadow"
-                                alt="Immagine {{ $key + 1 }} dell'articolo {{ $article->title }}">
+                                alt="Immagine {{ $key + 1 }} dell'articolo {{ $article->title }}"> -->
                         </div>
                         @endforeach
                     </div>
