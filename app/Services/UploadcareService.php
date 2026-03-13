@@ -2,22 +2,27 @@
 
 namespace App\Services;
 
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
 
 class UploadcareService
 {
-    public static function uploadLocalFile(string $absolutePath): array
+    public static function uploadUploadedFile(UploadedFile $file): array
     {
-        if (!is_file($absolutePath)) {
-            throw new RuntimeException("File non trovato: {$absolutePath}");
-        }
-
         $publicKey = env('UPLOADCARE_PUBLIC_KEY');
 
         if (!$publicKey) {
             throw new RuntimeException('UPLOADCARE_PUBLIC_KEY mancante');
         }
+
+        $realPath = $file->getRealPath();
+
+        if (!$realPath || !is_file($realPath)) {
+            throw new RuntimeException('File temporaneo non trovato');
+        }
+
+        $handle = fopen($realPath, 'r');
 
         $response = Http::timeout(120)
             ->asMultipart()
@@ -32,13 +37,15 @@ class UploadcareService
                 ],
                 [
                     'name' => 'file',
-                    'contents' => fopen($absolutePath, 'r'),
-                    'filename' => basename($absolutePath),
+                    'contents' => $handle,
+                    'filename' => $file->getClientOriginalName() ?? 'image.jpg',
                 ],
             ]);
 
+        fclose($handle);
+
         if (!$response->successful()) {
-            throw new RuntimeException('Uploadcare error: ' . $response->body());
+            throw new RuntimeException('Uploadcare error: '.$response->body());
         }
 
         $uuid = $response->json('file');
@@ -49,7 +56,7 @@ class UploadcareService
 
         return [
             'uuid' => $uuid,
-            'cdn_url' => 'https://ucarecdn.com/' . $uuid . '/',
+            'cdn_url' => 'https://ucarecdn.com/'.$uuid.'/',
         ];
     }
 }

@@ -18,7 +18,8 @@ class UploadImageToUploadcare implements ShouldQueue
 
     public function __construct(
         public int $imageId,
-        public bool $deleteLocalAfterUpload = true
+        public bool $deleteLocalAfterUpload = true,
+        public UploadcareService $uploadcareService
     ) {}
 
     public function handle(): void
