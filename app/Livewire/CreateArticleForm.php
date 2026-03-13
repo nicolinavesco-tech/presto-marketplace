@@ -5,10 +5,9 @@ namespace App\Livewire;
 use App\Models\Article;
 use App\Services\UploadcareService;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\Attributes\Validate;
 
 class CreateArticleForm extends Component
 {
@@ -34,52 +33,42 @@ class CreateArticleForm extends Component
         $this->validate();
 
         $article = Article::create([
-            'title' => $this->title,
-            'description' => $this->description,
-            'price' => $this->price,
-            'category_id' => $this->category,
-            'user_id' => Auth::id()
+            'title'=>$this->title,
+            'description'=>$this->description,
+            'price'=>$this->price,
+            'category_id'=>$this->category,
+            'user_id'=>Auth::id()
         ]);
 
-        if (!empty($this->images)) {
+        if(!empty($this->images)){
 
-            foreach ($this->images as $image) {
+            foreach($this->images as $image){
 
-                try {
+                try{
 
-                    $response = Http::asMultipart()->post('https://upload.uploadcare.com/base/', [
-                        [
-                            'name' => 'UPLOADCARE_PUB_KEY',
-                            'contents' => env('UPLOADCARE_PUBLIC_KEY'),
-                        ],
-                        [
-                            'name' => 'UPLOADCARE_STORE',
-                            'contents' => '1',
-                        ],
-                        [
-                            'name' => 'file',
-                            'contents' => fopen($image->getRealPath(), 'r'),
-                            'filename' => $image->getClientOriginalName(),
-                        ],
-                    ]);
-
-                    $uuid = $response->json('file');
+                    $uploadcare = UploadcareService::uploadUploadedFile($image);
 
                     $article->images()->create([
-                        'path' => "https://ucarecdn.com/$uuid/",
-                        'uploadcare_uuid' => $uuid
+                        'path'=>$uploadcare['cdn_url'],
+                        'uploadcare_uuid'=>$uploadcare['uuid']
                     ]);
-                } catch (\Throwable $e) {
+
+                }catch(\Throwable $e){
+
+                    logger()->error($e->getMessage());
 
                     $article->images()->create([
-                        'path' => "https://picsum.photos/1200/1200",
-                        'uploadcare_uuid' => null
+                        'path'=>"https://picsum.photos/1200/1200",
+                        'uploadcare_uuid'=>null
                     ]);
+
                 }
+
             }
+
         }
 
-        session()->flash('status', "Articolo creato");
+        session()->flash('status',"Articolo creato");
 
         $this->reset();
     }
@@ -87,12 +76,12 @@ class CreateArticleForm extends Component
     public function updatedTemporaryImages()
     {
         $this->validate([
-            'temporary_images.*' => 'image|max:1024',
-            'temporary_images' => 'max:6'
+            'temporary_images.*'=>'image|max:1024',
+            'temporary_images'=>'max:6'
         ]);
 
-        foreach ($this->temporary_images as $img) {
-            $this->images[] = $img;
+        foreach($this->temporary_images as $img){
+            $this->images[]=$img;
         }
     }
 
