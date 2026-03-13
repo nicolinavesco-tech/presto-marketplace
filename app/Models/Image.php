@@ -31,7 +31,6 @@ class Image extends Model
 
     public function getUrl(?int $w = null, ?int $h = null): string
     {
-        // 1) priorità assoluta a uploadcare_uuid
         if (filled($this->uploadcare_uuid)) {
             $base = 'https://ucarecdn.com/' . trim($this->uploadcare_uuid, '/') . '/';
 
@@ -50,12 +49,10 @@ class Image extends Model
             return $base;
         }
 
-        // 2) se path è già un URL remoto, usa quello
         if ($this->isRemote()) {
             return rtrim($this->path, '/') . '/';
         }
 
-        // 3) fallback locale
         if (filled($this->path)) {
             return '/storage/' . ltrim($this->path, '/');
         }
